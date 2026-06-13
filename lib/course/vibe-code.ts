@@ -1,6 +1,7 @@
 import type { Course } from './types'
 import lesson01 from './vibe-code/lesson-01'
 import lesson02 from './vibe-code/lesson-02'
+import lessonClaudeCode from './vibe-code/lesson-claude-code'
 import lesson03 from './vibe-code/lesson-03'
 import lesson04 from './vibe-code/lesson-04'
 import lesson05 from './vibe-code/lesson-05'
@@ -19,6 +20,7 @@ export const vibeCode: Course = {
   lessons: [
     lesson01,
     lesson02,
+    lessonClaudeCode,
     lesson03,
     lesson04,
     lesson05,

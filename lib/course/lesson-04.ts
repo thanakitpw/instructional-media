@@ -8,7 +8,7 @@ const lesson04: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'ให้ผู้เรียนเห็นภาพการทำงานจริงเมื่อ Front-End เรียก API ผ่าน Form และ Dashboard',
+          text: 'บทนี้จะเชื่อมภาพการทำงานจริงของ Front-End ที่เรียก API ผ่าน Form และ Dashboard',
         },
         {
           type: 'list',
@@ -21,12 +21,12 @@ const lesson04: Lesson = {
         {
           type: 'flow',
           steps: [
-            'User กรอก Form',
+            'User กรอกข้อมูลใน Form',
             'กด Submit',
             'Front-End สร้าง Request Body',
             'เรียก POST /api/leads',
-            'Back-End บันทึกข้อมูล',
-            'Front-End แสดง Success หรือ Error',
+            'Back-End ตรวจสอบและบันทึกข้อมูล',
+            'Front-End แสดงผลสำเร็จหรือข้อความ Error',
           ],
         },
         {
@@ -42,12 +42,12 @@ const lesson04: Lesson = {
       ],
     },
     {
-      title: 'สิ่งที่ควรสอนใน Code',
+      title: 'ประเด็นสำคัญใน Code',
       blocks: [
         {
           type: 'list',
           items: [
-            'การแยก API function ออกจาก UI',
+            'การแยก API function ออกจากส่วน UI',
             'การใช้ `fetch` หรือ axios',
             'การส่ง Header',
             'การส่ง Body แบบ JSON',
@@ -93,12 +93,12 @@ app/page.tsx`,
       ],
     },
     {
-      title: 'จุดที่ควรย้ำ',
+      title: 'จุดที่ต้องระวัง',
       blocks: [
         {
           type: 'callout',
           variant: 'warning',
-          text: 'อย่าเขียน API URL กระจายหลายจุดใน UI เพราะเมื่อเปลี่ยน URL หรือ Deploy แล้วจะแก้ยาก ควรแยกไว้ในไฟล์กลาง เช่น `lib/api.ts`',
+          text: 'ไม่ควรเขียน API URL กระจายหลายจุดใน UI เพราะเมื่อเปลี่ยน URL หรือหลัง Deploy แล้วจะแก้ยาก ควรแยกไว้ในไฟล์กลาง เช่น `lib/api.ts`',
         },
       ],
     },

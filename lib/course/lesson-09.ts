@@ -8,7 +8,7 @@ const lesson09: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'ให้ผู้เรียนเข้าใจความต่างระหว่าง Local และ Production และรู้ว่าหลัง Deploy ต้องทดสอบอะไรบ้าง',
+          text: 'บทนี้อธิบายความต่างระหว่าง Local และ Production และสรุปสิ่งที่ต้องทดสอบหลัง Deploy เพื่อให้มั่นใจว่าระบบใช้งานได้จริง',
         },
         { type: 'heading', text: 'Local' },
         {
@@ -24,9 +24,9 @@ const lesson09: Lesson = {
         {
           type: 'list',
           items: [
-            'รันบน Server จริง',
+            'รันบน Server หรือ Hosting จริง',
             'มี URL จริง',
-            'Web App / Mobile App / External System เรียกใช้งานได้',
+            'Web App, Mobile App และ External System เรียกใช้งานได้',
             'ต้องตั้งค่า Environment Variables บน Server',
           ],
         },
@@ -83,7 +83,7 @@ const lesson09: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'เมื่อมีการส่งมอบ App หรือให้ลูกค้าเอาไปดูแลต่อ ควรมีเอกสารเหล่านี้',
+          text: 'เมื่อส่งมอบ App หรือให้ทีมอื่นดูแลต่อ ควรมีเอกสารเหล่านี้เพื่อลดปัญหาหลังส่งมอบ',
         },
         { type: 'heading', text: '1. README.md' },
         {

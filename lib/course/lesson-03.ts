@@ -8,7 +8,7 @@ const lesson03: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'ให้ผู้เรียนสามารถทดสอบ API แยกจาก Front-End ได้ เพื่อแยกปัญหาให้ออกว่า API เสียจริง หรือ Front-End เรียก API ผิด',
+          text: 'เป้าหมายของบทนี้คือการทดสอบ API แยกจาก Front-End ให้ได้ เพื่อแยกปัญหาให้ออกว่า API มีปัญหาจริง หรือ Front-End เรียก API ผิดวิธี',
         },
         {
           type: 'heading',
@@ -16,7 +16,7 @@ const lesson03: Lesson = {
         },
         {
           type: 'paragraph',
-          text: 'Endpoint คือ URL ของ API ที่ระบบอื่นสามารถเรียกใช้งานได้ เช่น',
+          text: 'Endpoint คือ URL หรือ path ของ API ที่ระบบอื่นสามารถเรียกใช้งานได้ เช่น',
         },
         {
           type: 'code',
@@ -51,7 +51,7 @@ PATCH /api/leads/:id`,
         },
         {
           type: 'paragraph',
-          text: 'ข้อมูลที่ Client ส่งไปให้ API เช่น',
+          text: 'Request Body คือข้อมูลที่ Client ส่งไปให้ API เช่น',
         },
         {
           type: 'code',
@@ -68,7 +68,7 @@ PATCH /api/leads/:id`,
         },
         {
           type: 'paragraph',
-          text: 'ข้อมูลที่ API ส่งกลับมา เช่น',
+          text: 'Response Body คือข้อมูลที่ API ส่งกลับมาหลังประมวลผล เช่น',
         },
         {
           type: 'code',
@@ -113,14 +113,14 @@ PATCH /api/leads/:id`,
       blocks: [
         {
           type: 'heading',
-          text: 'สิ่งที่ให้ผู้เรียนทำ',
+          text: 'สิ่งที่ต้องทำใน Workshop',
         },
         {
           type: 'list',
           ordered: true,
           items: [
-            'ยิง `GET /api/leads`',
-            'ยิง `POST /api/leads`',
+            'เรียก `GET /api/leads`',
+            'เรียก `POST /api/leads`',
             'ใส่ Body แบบ JSON',
             'ใส่ Header `Content-Type: application/json`',
             'อ่าน Response ที่ได้กลับมา',
@@ -139,7 +139,7 @@ PATCH /api/leads/:id`,
             'API URL ถูกไหม',
             'Method ถูกไหม',
             'Header ครบไหม',
-            'Body เป็น JSON ถูก Format ไหม',
+            'Body เป็น JSON ที่ถูกต้องไหม',
             'Status Code คืออะไร',
             'Response Message บอกอะไร',
             'Error เกิดจาก Client หรือ Server',
@@ -149,7 +149,7 @@ PATCH /api/leads/:id`,
           type: 'callout',
           variant: 'note',
           title: 'สิ่งที่ผู้เรียนควรเข้าใจ',
-          text: 'ถ้าทดสอบ API ผ่าน Postman แล้วใช้งานได้ แต่หน้าเว็บยัง Error แปลว่าปัญหาอาจอยู่ที่ Front-End เช่น URL ผิด, Body ผิด, Header ผิด หรือการจัดการ Response ผิด',
+          text: 'ถ้าทดสอบ API ผ่าน Postman แล้วใช้งานได้ แต่หน้าเว็บยัง Error แสดงว่าปัญหาอาจอยู่ที่ Front-End เช่น URL ผิด, Body ผิด, Header ไม่ครบ หรือจัดการ Response ไม่ถูกต้อง',
         },
       ],
     },

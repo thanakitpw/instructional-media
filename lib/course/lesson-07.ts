@@ -8,11 +8,11 @@ const lesson07: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'ให้ผู้เรียนมีวิธีไล่ปัญหาเองเมื่อ App ใช้งานไม่ได้ โดยไม่ต้องเดาสุ่ม',
+          text: 'บทนี้วางวิธีไล่ปัญหาเมื่อ App ทำงานผิดปกติ เพื่อให้ตรวจสอบเป็นลำดับแทนการเดาสุ่ม',
         },
         {
           type: 'paragraph',
-          text: 'อย่าเริ่มจาก "แก้ยังไง" ทันที ให้เริ่มจาก "Error เกิดตรงไหน" ก่อน',
+          text: 'อย่าเริ่มจากคำถามว่า "ต้องแก้อย่างไร" ทันที ให้เริ่มจาก "Error เกิดตรงไหน" ก่อน',
         },
         {
           type: 'heading',
@@ -57,7 +57,7 @@ const lesson07: Lesson = {
             'API Server รันอยู่ไหม',
             'URL API ถูกไหม',
             'Method ถูกไหม',
-            'Body ถูก Format ไหม',
+            'Body เป็นรูปแบบที่ API ต้องการไหม',
             'Header ครบไหม',
             'Token / API Key ถูกไหม',
             '.env มีค่าครบไหม',
@@ -111,7 +111,7 @@ const lesson07: Lesson = {
           items: [
             'ปิด process เก่า',
             'เปลี่ยน port',
-            'restart terminal',
+            'Restart terminal',
           ],
         },
         {
@@ -140,7 +140,7 @@ const lesson07: Lesson = {
             'ดู .env.example',
             'สร้าง .env.local',
             'ใส่ค่าครบ',
-            'restart dev server',
+            'Restart dev server',
           ],
         },
         {
@@ -184,7 +184,7 @@ const lesson07: Lesson = {
         },
         {
           type: 'paragraph',
-          text: 'มักเกิดเมื่อ Front-End และ Back-End อยู่คนละ Domain แล้ว Server ไม่อนุญาตให้เรียก',
+          text: 'มักเกิดเมื่อ Front-End และ Back-End อยู่คนละ Domain แล้ว Server ยังไม่อนุญาตให้ Origin นั้นเรียกใช้งาน',
         },
         {
           type: 'paragraph',

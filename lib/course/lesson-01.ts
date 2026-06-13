@@ -8,32 +8,32 @@ const lesson01: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'คอร์สนี้ออกแบบสำหรับผู้เรียนที่มีพื้นฐานการพัฒนา Web Application อยู่แล้ว และต้องการเข้าใจภาพรวมการทำงานจริงของระบบที่มี Front-End, Back-End, Database และ API เชื่อมต่อกัน รวมถึงการนำ API เดียวกันไปใช้ทั้งใน Web App และ Mobile App',
+          text: 'คอร์สนี้เหมาะสำหรับผู้เรียนที่มีพื้นฐานการพัฒนา Web Application อยู่แล้ว และต้องการเห็นภาพการทำงานจริงของระบบที่มี Front-End, Back-End, Database และ API เชื่อมต่อกัน รวมถึงการใช้ API ชุดเดียวกันกับทั้ง Web App และ Mobile App',
         },
         {
           type: 'paragraph',
-          text: 'เนื้อหาจะเน้นการอธิบายจาก Flow จริงมากกว่าทฤษฎีลึก โดยใช้ตัวอย่างระบบเล็ก ๆ คือ Lead Integration Mini System เพื่อให้เห็นครบตั้งแต่การส่งข้อมูลจากหน้าเว็บ เข้า API บันทึกลง Database และส่งต่อข้อมูลไปยังอีกระบบหนึ่ง เช่น Google Sheets, CRM, Webhook หรือระบบแจ้งเตือน',
+          text: 'เนื้อหาจะเน้น Flow การทำงานจริงมากกว่าทฤษฎีเชิงลึก โดยใช้ระบบตัวอย่างชื่อ Lead Integration Mini System เพื่อให้เห็นตั้งแต่การส่งข้อมูลจากหน้าเว็บ เข้า API บันทึกลง Database และส่งต่อไปยังระบบอื่น เช่น Google Sheets, CRM, Webhook หรือระบบแจ้งเตือน',
         },
       ],
     },
     {
       title: 'เป้าหมายหลังเรียนจบ',
       blocks: [
-        { type: 'paragraph', text: 'หลังเรียนจบ ผู้เรียนควรทำได้ดังนี้' },
+        { type: 'paragraph', text: 'หลังเรียนจบ ผู้เรียนควรสามารถทำสิ่งต่อไปนี้ได้' },
         {
           type: 'list',
           ordered: true,
           items: [
-            'อธิบาย Flow การทำงานระหว่าง Front-End, Back-End, API และ Database ได้',
+            'อธิบาย Flow การทำงานระหว่าง Front-End, Back-End, API และ Database ได้อย่างเป็นลำดับ',
             'เข้าใจว่า Web App และ Mobile App สามารถเรียก API ชุดเดียวกันได้อย่างไร',
             'ทดสอบ API ด้วย Postman หรือ Thunder Client ได้',
             'อ่าน Request, Response, Status Code และ Error เบื้องต้นได้',
-            'เข้าใจวิธีติดตั้ง App ที่ได้รับมา เช่น Clone, Install, Setup .env, Run และ Test',
-            'ไล่เช็กปัญหาเมื่อ App ใช้งานไม่ได้อย่างเป็นระบบ',
-            'เข้าใจการ Interface Data ระหว่าง 2 ระบบผ่าน API',
+            'เข้าใจวิธีติดตั้ง App ที่ได้รับมา ตั้งแต่ Clone, Install, ตั้งค่า .env, Run ไปจนถึง Test',
+            'ไล่เช็กปัญหาเมื่อ App ทำงานผิดปกติ โดยแยกสาเหตุทีละส่วน',
+            'เข้าใจการ Interface Data ระหว่างสองระบบผ่าน API',
             'ทำ Data Mapping เบื้องต้นได้',
             'เข้าใจ API Contract, Webhook, API Key และ Error Handling เบื้องต้น',
-            'Deploy และทดสอบ Production URL แบบพื้นฐานได้',
+            'Deploy และทดสอบ Production URL เบื้องต้นได้',
           ],
         },
       ],
@@ -43,7 +43,7 @@ const lesson01: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'ใช้ระบบรับ Lead เป็นตัวอย่าง เพราะเข้าใจง่ายและต่อยอดกับธุรกิจจริงได้',
+          text: 'คอร์สนี้ใช้ระบบรับ Lead เป็นตัวอย่าง เพราะเห็นภาพง่ายและต่อยอดกับงานธุรกิจจริงได้',
         },
         { type: 'heading', text: 'Flow หลัก' },
         {

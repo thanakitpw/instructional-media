@@ -8,7 +8,7 @@ const lesson05: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'ให้ผู้เรียนเข้าใจว่า Mobile App สามารถใช้ Back-End API ชุดเดียวกับ Web App ได้ แต่มีข้อควรระวังเรื่อง URL, localhost และ Environment',
+          text: 'Mobile App สามารถใช้ Back-End API ชุดเดียวกับ Web App ได้ แต่ต้องระวังเรื่อง URL, localhost และ Environment เพราะสภาพแวดล้อมการรันไม่เหมือนกัน',
         },
         {
           type: 'flow',
@@ -38,7 +38,7 @@ const lesson05: Lesson = {
         {
           type: 'list',
           items: [
-            'Mobile App ไม่มี Browser URL เหมือน Web',
+            'Mobile App ไม่มี Browser URL เหมือน Web App',
             'การเรียก `localhost` จะมีปัญหาเมื่อทดสอบบนมือถือจริง',
             'ต้องใช้ IP เครื่องในวง LAN หรือ Production API URL',
             'ต้องจัดการ Permission / Network / Device Testing เพิ่ม',
@@ -46,7 +46,7 @@ const lesson05: Lesson = {
         },
         {
           type: 'paragraph',
-          text: 'ใน Web App บนเครื่องคอมพิวเตอร์ อาจเรียกได้ว่า',
+          text: 'ใน Web App ที่รันบนเครื่องคอมพิวเตอร์ อาจเรียก API แบบนี้ได้',
         },
         {
           type: 'code',
@@ -59,7 +59,7 @@ const lesson05: Lesson = {
         },
         {
           type: 'paragraph',
-          text: 'ดังนั้น Mobile App จะเรียก API ในเครื่องคอมด้วย localhost ไม่ได้',
+          text: 'ดังนั้น Mobile App ที่รันบนมือถือจริงจะเรียก API ในเครื่องคอมพิวเตอร์ด้วย localhost โดยตรงไม่ได้',
         },
       ],
     },
@@ -84,7 +84,7 @@ const lesson05: Lesson = {
         {
           type: 'callout',
           variant: 'key',
-          text: 'Web App และ Mobile App ต่างกันที่ UI และ Runtime แต่สามารถใช้ API Contract เดียวกันได้ ถ้าออกแบบ API ดีตั้งแต่แรก',
+          text: 'Web App และ Mobile App ต่างกันที่ UI และ Runtime แต่สามารถใช้ API Contract เดียวกันได้ หากออกแบบ API ให้ชัดเจนตั้งแต่แรก',
         },
       ],
     },

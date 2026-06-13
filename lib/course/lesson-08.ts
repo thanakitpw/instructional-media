@@ -1,14 +1,14 @@
 import type { Lesson } from './types'
 
 const lesson08: Lesson = {
-  title: 'Interface Data ระหว่าง 2 ระบบผ่าน API',
+  title: 'Interface Data ระหว่างสองระบบผ่าน API',
   sections: [
     {
       title: 'Interface Data & คำศัพท์',
       blocks: [
         {
           type: 'paragraph',
-          text: 'ให้ผู้เรียนเข้าใจหลักการเชื่อมข้อมูลระหว่าง 2 ระบบ และเห็นตัวอย่างการทำ Data Mapping, API Contract, Webhook และ Error Handling',
+          text: 'บทนี้อธิบายหลักการเชื่อมข้อมูลระหว่างสองระบบ พร้อมตัวอย่าง Data Mapping, API Contract, Webhook และ Error Handling ที่พบได้ในงานจริง',
         },
         {
           type: 'heading',
@@ -16,7 +16,7 @@ const lesson08: Lesson = {
         },
         {
           type: 'paragraph',
-          text: 'การ Interface Data คือการทำให้ระบบหนึ่งส่งข้อมูลไปยังอีกระบบหนึ่งอย่างเป็นระบบ ผ่าน API, Webhook หรือ Integration Layer',
+          text: 'การ Interface Data คือการทำให้ระบบหนึ่งส่งข้อมูลไปยังอีกระบบหนึ่งอย่างเป็นระบบ ผ่าน API, Webhook หรือ Integration Layer โดยต้องตกลงรูปแบบข้อมูลและวิธีรับมือเมื่อเกิดข้อผิดพลาดให้ชัดเจน',
         },
         {
           type: 'flow',
@@ -47,7 +47,7 @@ const lesson08: Lesson = {
             },
             {
               term: 'Data Mapping',
-              desc: 'การจับคู่ Field ระหว่างระบบต้นทางและระบบปลายทาง',
+              desc: 'การจับคู่ Field ระหว่างระบบต้นทางและระบบปลายทาง เพื่อให้ข้อมูลแปลงไปอยู่ในรูปแบบที่ปลายทางต้องการ',
             },
             {
               term: 'Webhook',
@@ -59,7 +59,7 @@ const lesson08: Lesson = {
             },
             {
               term: 'Error Handling',
-              desc: 'วิธีจัดการเมื่อส่งข้อมูลไม่สำเร็จ',
+              desc: 'วิธีจัดการเมื่อส่งข้อมูลไม่สำเร็จ เช่น บันทึก Log, แจ้งเตือน หรือ Retry',
             },
             {
               term: 'Log',
@@ -104,7 +104,7 @@ const lesson08: Lesson = {
         },
         {
           type: 'paragraph',
-          text: 'ดังนั้นต้อง Mapping เป็น',
+          text: 'ดังนั้นต้อง Mapping ข้อมูลเป็น',
         },
         {
           type: 'table',
@@ -127,8 +127,8 @@ const lesson08: Lesson = {
             'Field ไหนจำเป็น',
             'Field ไหนไม่จำเป็น',
             'ชื่อ Field ตรงกันไหม',
-            'Format ข้อมูลตรงกันไหม',
-            'วันที่ต้องเป็น Format อะไร',
+            'รูปแบบข้อมูลตรงกันไหม',
+            'วันที่ต้องใช้รูปแบบอะไร',
             'เบอร์โทรต้องมีขีดไหม',
             'ถ้าข้อมูลว่างส่งได้ไหม',
             'ถ้าส่งไม่สำเร็จจะ Retry ไหม',
@@ -167,7 +167,7 @@ const lesson08: Lesson = {
         },
         {
           type: 'heading',
-          text: 'สิ่งที่ให้ผู้เรียนทำ',
+          text: 'สิ่งที่ต้องทำใน Workshop',
         },
         {
           type: 'list',
@@ -214,7 +214,7 @@ Source: Landing Page`,
         },
         {
           type: 'heading',
-          text: 'จุดที่ควรสอน',
+          text: 'จุดที่ต้องระวัง',
         },
         {
           type: 'list',
@@ -236,7 +236,7 @@ Source: Landing Page`,
         },
         {
           type: 'paragraph',
-          text: 'การเชื่อม API จริงมักต้องมีการยืนยันสิทธิ์',
+          text: 'การเชื่อม API จริงมักต้องมีการยืนยันสิทธิ์ เพื่อให้ระบบปลายทางรู้ว่า Request มาจากแหล่งที่ได้รับอนุญาต',
         },
         {
           type: 'heading',
@@ -250,7 +250,7 @@ Content-Type: application/json`,
         },
         {
           type: 'heading',
-          text: 'สิ่งที่ควรย้ำ',
+          text: 'จุดที่ต้องระวัง',
         },
         {
           type: 'checklist',

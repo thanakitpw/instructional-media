@@ -8,14 +8,14 @@ const lesson10: Lesson = {
       blocks: [
         {
           type: 'paragraph',
-          text: 'สิ่งที่ผู้เรียนควรจำให้ได้',
+          text: 'ประเด็นสำคัญที่ควรจำหลังเรียนจบ',
         },
         {
           type: 'list',
           items: [
             'Web App และ Mobile App เรียก API ชุดเดียวกันได้',
             'API ต้องทดสอบแยกก่อนเสมอ',
-            'เวลา App มีปัญหา ต้องแยกให้ได้ว่าเสียที่ Front-End, Back-End, Database หรือ External System',
+            'เวลา App มีปัญหา ต้องแยกให้ได้ว่าปัญหาอยู่ที่ Front-End, Back-End, Database หรือ External System',
             'การติดตั้ง App ต้องเริ่มจาก README, package.json, .env และคำสั่ง run',
             'การ Interface Data ต้องดู Data Mapping, API Contract, Auth, Error Handling และ Log',
             'Production URL ต้องทดสอบใหม่เสมอ เพราะบางอย่างที่ใช้ได้ใน Local อาจไม่ทำงานบน Server',
@@ -40,8 +40,8 @@ const lesson10: Lesson = {
         {
           type: 'checklist',
           items: [
-            'รู้ว่า Form ส่งข้อมูลไป API ยังไง',
-            'รู้ว่า Dashboard ดึงข้อมูลจาก API ยังไง',
+            'อธิบายได้ว่า Form ส่งข้อมูลไป API อย่างไร',
+            'อธิบายได้ว่า Dashboard ดึงข้อมูลจาก API อย่างไร',
             'จัดการ Loading / Error ได้',
           ],
         },
@@ -61,7 +61,7 @@ const lesson10: Lesson = {
             'Clone Project ได้',
             'npm install ได้',
             'ตั้งค่า .env ได้',
-            'Run Project ได้',
+            'รันโปรเจกต์ได้',
             'ทดสอบ API และ Database ได้',
           ],
         },

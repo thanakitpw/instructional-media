@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { NavLesson } from '@/lib/course/nav'
+import Brand from '@/components/Brand'
 
 export default function Sidebar({
   nav,
@@ -95,6 +96,7 @@ export default function Sidebar({
         }`}
       >
         <div className="border-b border-border px-5 pb-4 pt-5 lg:pt-5">
+          <Brand className="mb-4" />
           {/* course switcher */}
           <div
             className="mb-3 flex gap-1 rounded-lg border border-border bg-elevated p-1"
@@ -127,13 +129,6 @@ export default function Sidebar({
             className="block text-[0.95rem] font-semibold leading-snug tracking-tight text-ink transition hover:text-accent"
           >
             {courseTitle}
-          </Link>
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className="mt-1 inline-block text-xs text-muted transition hover:text-accent"
-          >
-            ← คอร์สทั้งหมด
           </Link>
 
           <input

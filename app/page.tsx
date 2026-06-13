@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { courses } from '@/lib/course'
 import { courseNav } from '@/lib/course/nav'
+import Brand from '@/components/Brand'
 
 export default function Home() {
   return (
     <div className="page-enter mx-auto max-w-2xl px-6 py-16 sm:py-24">
+      <Brand className="mb-10" />
       <header className="mb-12">
         <h1 className="text-3xl font-bold tracking-tight text-balance text-ink sm:text-4xl">
           เลือกคอร์สที่จะเรียน

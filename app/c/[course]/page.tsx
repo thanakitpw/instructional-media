@@ -22,12 +22,6 @@ export default async function CoursePage({
   return (
     <div className="page-enter">
       <header className="mb-12 border-b border-border pb-8">
-        <Link
-          href="/"
-          className="mb-4 inline-block text-xs text-muted transition hover:text-accent"
-        >
-          ← คอร์สทั้งหมด
-        </Link>
         <h1 className="text-3xl font-bold tracking-tight text-balance text-ink">
           {course.title}
         </h1>

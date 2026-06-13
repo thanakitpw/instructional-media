@@ -8,8 +8,6 @@ import lesson05 from './vibe-code/lesson-05'
 import lesson06 from './vibe-code/lesson-06'
 import lesson07 from './vibe-code/lesson-07'
 import lesson08 from './vibe-code/lesson-08'
-import lesson09 from './vibe-code/lesson-09'
-import lesson10 from './vibe-code/lesson-10'
 
 export const vibeCode: Course = {
   slug: 'vibe-code',
@@ -27,7 +25,5 @@ export const vibeCode: Course = {
     lesson06,
     lesson07,
     lesson08,
-    lesson09,
-    lesson10,
   ],
 }

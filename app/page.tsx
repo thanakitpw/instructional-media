@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import CourseContent from '@/components/CourseContent'
 import Sidebar from '@/components/Sidebar'
+import ProgressBar from '@/components/ProgressBar'
 import { parseToc } from '@/lib/toc'
 
 export default function Page() {
@@ -11,11 +12,14 @@ export default function Page() {
   )
   const toc = parseToc(md, 3)
   return (
-    <div className="lg:pl-72">
-      <Sidebar toc={toc} />
-      <main className="mx-auto px-6 py-10">
-        <CourseContent markdown={md} />
-      </main>
-    </div>
+    <>
+      <ProgressBar />
+      <div className="lg:pl-72">
+        <Sidebar toc={toc} />
+        <main className="mx-auto px-6 py-10">
+          <CourseContent markdown={md} />
+        </main>
+      </div>
+    </>
   )
 }

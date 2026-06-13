@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { TocItem } from '@/lib/toc'
 
 function flatten(items: TocItem[]): TocItem[] {
@@ -9,7 +9,7 @@ function flatten(items: TocItem[]): TocItem[] {
 
 function matches(item: TocItem, q: string): boolean {
   if (!q) return true
-  if (item.title.toLowerCase().includes(q)) return true
+  if (item.title.toLowerCase().includes(q.toLowerCase())) return true
   return item.children.some((c) => matches(c, q))
 }
 
@@ -32,6 +32,7 @@ function TocList({
         <li key={item.id}>
           <a
             href={`#${item.id}`}
+            aria-current={activeId === item.id ? 'true' : undefined}
             onClick={(e) => {
               e.preventDefault()
               onClick(item.id)
@@ -63,11 +64,13 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
   const [query, setQuery] = useState('')
   const [activeId, setActiveId] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
+  const scrollingRef = useRef(false)
   const ids = useMemo(() => flatten(toc).map((i) => i.id), [toc])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        if (scrollingRef.current) return
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
@@ -82,10 +85,34 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
     return () => observer.disconnect()
   }, [ids])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
   const handleClick = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(id)
+    if (!el) return
+    scrollingRef.current = true
     setActiveId(id)
     setOpen(false)
+    el.scrollIntoView({ behavior: 'smooth' })
+    const done = () => {
+      scrollingRef.current = false
+    }
+    if ('onscrollend' in window) {
+      window.addEventListener('scrollend', done, { once: true })
+    } else {
+      setTimeout(done, 700)
+    }
   }
 
   return (
@@ -99,6 +126,14 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
         ☰ สารบัญ
       </button>
 
+      {open && (
+        <div
+          className="fixed inset-0 z-10 bg-black/30 lg:hidden"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       <aside
         className={`fixed inset-y-0 left-0 z-20 w-72 overflow-y-auto border-r border-slate-200 bg-white p-4 pt-16 transition-transform lg:translate-x-0 lg:pt-4 ${
           open ? 'translate-x-0' : '-translate-x-full'
@@ -107,11 +142,11 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
         <input
           type="search"
           value={query}
-          onChange={(e) => setQuery(e.target.value.toLowerCase())}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาหัวข้อ..."
           className="mb-4 w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
         />
-        <nav>
+        <nav aria-label="สารบัญ">
           <TocList
             items={toc}
             query={query}

@@ -3,7 +3,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 1.5rem;
+  scroll-padding-top: 3.5rem;
 }
 
 /* code block: ปล่อยให้ rehype-highlight คุมสี ไม่ให้ prose ทับ background */

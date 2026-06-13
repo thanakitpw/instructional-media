@@ -1,33 +1,40 @@
 import { notFound } from 'next/navigation'
+import { getCourse, courses } from '@/lib/course'
 import { flatSections, getSection, prevNext } from '@/lib/course/nav'
 import BlockList from '@/components/blocks/BlockList'
 import Breadcrumb from '@/components/Breadcrumb'
 import LessonNav from '@/components/LessonNav'
 
 export function generateStaticParams() {
-  return flatSections().map((f) => {
-    const [lesson, section] = f.sectionNum.split('.')
-    return { lesson, section }
-  })
+  return courses.flatMap((c) =>
+    flatSections(c).map((f) => {
+      const [lesson, section] = f.sectionNum.split('.')
+      return { course: c.slug, lesson, section }
+    }),
+  )
 }
 
 export default async function SectionPage({
   params,
 }: {
-  params: Promise<{ lesson: string; section: string }>
+  params: Promise<{ course: string; lesson: string; section: string }>
 }) {
-  const { lesson, section } = await params
-  const data = getSection(Number(lesson), Number(section))
+  const { course: slug, lesson, section } = await params
+  const course = getCourse(slug)
+  if (!course) notFound()
+
+  const data = getSection(course, Number(lesson), Number(section))
   if (!data) notFound()
 
-  const { prev, next } = prevNext(Number(lesson), Number(section))
+  const { prev, next } = prevNext(course, Number(lesson), Number(section))
 
   return (
     <article className="page-enter">
       <Breadcrumb
+        courseSlug={course.slug}
+        courseSubject={course.subject}
         lessonNum={data.lessonNum}
         lessonTitle={data.lessonTitle}
-        sectionNum={data.sectionNum}
         sectionTitle={data.section.title}
       />
       <header className="mb-8">

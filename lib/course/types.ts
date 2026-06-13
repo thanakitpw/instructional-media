@@ -18,3 +18,15 @@ export interface Lesson {
   title: string
   sections: Section[]
 }
+
+export interface Course {
+  /** url slug, e.g. "api-integration" */
+  slug: string
+  /** full course title */
+  title: string
+  /** short subject label for the course picker / switcher */
+  subject: string
+  /** one-line description */
+  description: string
+  lessons: Lesson[]
+}

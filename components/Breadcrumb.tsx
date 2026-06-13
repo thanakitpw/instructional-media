@@ -1,14 +1,16 @@
 import Link from 'next/link'
 
 export default function Breadcrumb({
+  courseSlug,
+  courseSubject,
   lessonNum,
   lessonTitle,
-  sectionNum,
   sectionTitle,
 }: {
+  courseSlug: string
+  courseSubject: string
   lessonNum: number
   lessonTitle: string
-  sectionNum: string
   sectionTitle: string
 }) {
   return (
@@ -18,6 +20,10 @@ export default function Breadcrumb({
     >
       <Link href="/" className="transition hover:text-accent">
         หน้าแรก
+      </Link>
+      <span aria-hidden="true">/</span>
+      <Link href={`/c/${courseSlug}`} className="transition hover:text-accent">
+        {courseSubject}
       </Link>
       <span aria-hidden="true">/</span>
       <span>

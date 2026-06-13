@@ -5,7 +5,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { NavLesson } from '@/lib/course/nav'
 
-export default function Sidebar({ nav }: { nav: NavLesson[] }) {
+export default function Sidebar({
+  nav,
+  courseSlug,
+  courseTitle,
+  courses,
+}: {
+  nav: NavLesson[]
+  courseSlug: string
+  courseTitle: string
+  courses: { slug: string; subject: string }[]
+}) {
   const pathname = usePathname()
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
@@ -85,16 +95,47 @@ export default function Sidebar({ nav }: { nav: NavLesson[] }) {
         }`}
       >
         <div className="border-b border-border px-5 pb-4 pt-5 lg:pt-5">
+          {/* course switcher */}
+          <div
+            className="mb-3 flex gap-1 rounded-lg border border-border bg-elevated p-1"
+            role="tablist"
+            aria-label="เลือกคอร์ส"
+          >
+            {courses.map((c) => {
+              const active = c.slug === courseSlug
+              return (
+                <Link
+                  key={c.slug}
+                  href={`/c/${c.slug}`}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? 'page' : undefined}
+                  className={`flex-1 rounded-md px-2 py-1 text-center text-xs font-medium transition ${
+                    active
+                      ? 'bg-accent text-accent-fg'
+                      : 'text-ink-soft hover:bg-bg'
+                  }`}
+                >
+                  {c.subject}
+                </Link>
+              )
+            })}
+          </div>
+
+          <Link
+            href={`/c/${courseSlug}`}
+            onClick={() => setOpen(false)}
+            className="block text-[0.95rem] font-semibold leading-snug tracking-tight text-ink transition hover:text-accent"
+          >
+            {courseTitle}
+          </Link>
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            className="block text-[0.95rem] font-semibold tracking-tight text-ink transition hover:text-accent"
+            className="mt-1 inline-block text-xs text-muted transition hover:text-accent"
           >
-            API Integration
-            <span className="block text-xs font-normal text-muted">
-              Web &amp; Mobile App · คอร์ส
-            </span>
+            ← คอร์สทั้งหมด
           </Link>
+
           <input
             type="search"
             value={query}

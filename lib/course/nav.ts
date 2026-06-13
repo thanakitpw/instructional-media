@@ -1,7 +1,7 @@
-import type { Lesson } from './types'
-import { course } from './index'
+import type { Course } from './types'
 
 export interface FlatSection {
+  courseSlug: string
   lessonNum: number
   sectionNum: string // เช่น "1.2"
   lessonTitle: string
@@ -15,30 +15,31 @@ export interface NavLesson {
   sections: { sectionNum: string; title: string; href: string }[]
 }
 
-export function flatSections(data: Lesson[] = course): FlatSection[] {
+export function sectionHref(slug: string, lessonNum: number, s: number): string {
+  return `/c/${slug}/${lessonNum}/${s}`
+}
+
+export function flatSections(course: Course): FlatSection[] {
   const flat: FlatSection[] = []
-  data.forEach((lesson, li) => {
+  course.lessons.forEach((lesson, li) => {
     const lessonNum = li + 1
     lesson.sections.forEach((section, si) => {
       const s = si + 1
       flat.push({
+        courseSlug: course.slug,
         lessonNum,
         sectionNum: `${lessonNum}.${s}`,
         lessonTitle: lesson.title,
         title: section.title,
-        href: `/lesson/${lessonNum}/${s}`,
+        href: sectionHref(course.slug, lessonNum, s),
       })
     })
   })
   return flat
 }
 
-export function getSection(
-  lessonNum: number,
-  sectionNum: number,
-  data: Lesson[] = course,
-) {
-  const lesson = data[lessonNum - 1]
+export function getSection(course: Course, lessonNum: number, sectionNum: number) {
+  const lesson = course.lessons[lessonNum - 1]
   if (!lesson) return null
   const section = lesson.sections[sectionNum - 1]
   if (!section) return null
@@ -51,13 +52,9 @@ export function getSection(
   }
 }
 
-export function prevNext(
-  lessonNum: number,
-  sectionNum: number,
-  data: Lesson[] = course,
-) {
-  const flat = flatSections(data)
-  const href = `/lesson/${lessonNum}/${sectionNum}`
+export function prevNext(course: Course, lessonNum: number, sectionNum: number) {
+  const flat = flatSections(course)
+  const href = sectionHref(course.slug, lessonNum, sectionNum)
   const idx = flat.findIndex((f) => f.href === href)
   return {
     prev: idx > 0 ? flat[idx - 1] : null,
@@ -67,14 +64,14 @@ export function prevNext(
   }
 }
 
-export function courseNav(data: Lesson[] = course): NavLesson[] {
-  return data.map((lesson, li) => ({
+export function courseNav(course: Course): NavLesson[] {
+  return course.lessons.map((lesson, li) => ({
     lessonNum: li + 1,
     title: lesson.title,
     sections: lesson.sections.map((section, si) => ({
       sectionNum: `${li + 1}.${si + 1}`,
       title: section.title,
-      href: `/lesson/${li + 1}/${si + 1}`,
+      href: sectionHref(course.slug, li + 1, si + 1),
     })),
   }))
 }

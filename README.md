@@ -1,57 +1,61 @@
-# API Integration for Web & Mobile App — สื่อการสอน
+# สื่อการสอน — API Integration & Vibe Code
 
-เว็บสื่อการสอนคอร์ส **API Integration for Web & Mobile App** (Next.js App Router)
-แบ่งเป็น **11 บทเรียน** มีเลขบท/หัวข้อย่อย (เช่น บทที่ 3 → 3.1, 3.2) โดย**หัวข้อย่อยแต่ละอันเป็นคนละหน้า (route แยก)**
+เว็บสื่อการสอน **2 คอร์ส** (Next.js App Router) แยกตามเรื่อง แต่ละคอร์สแบ่งเป็นบท/หัวข้อย่อย
+(หัวข้อย่อยละหน้า) เนื้อหาเป็น component จริง ไม่ใช่ markdown ดิบ
+
+- **API Integration for Web & Mobile App** — 11 บท
+- **Vibe Code Website Bootcamp** — 10 บท
+
+## Routing
+
+```text
+/                         หน้าเลือกคอร์ส (course picker)
+/c/[course]               หน้าสารบัญของคอร์ส (lesson index)
+/c/[course]/[lesson]/[section]   หน้าหัวข้อย่อย เช่น /c/vibe-code/2/3
+```
+
+`[course]` = `api-integration` | `vibe-code` (static ทุกหน้า)
 
 ## ฟีเจอร์
 
-- หน้าแรก (`/`) แสดงสารบัญทุกบท/หัวข้อย่อย
-- หัวข้อย่อยละหน้า: `/lesson/{บท}/{หัวข้อย่อย}` เช่น `/lesson/3/2`
-- Sidebar ซ้าย: ทุกบท (ย่อ/ขยายได้) + ค้นหา + ไฮไลต์หน้าปัจจุบัน + เมนู hamburger บนมือถือ
-- ปุ่ม "ก่อนหน้า / ถัดไป" ไล่ต่อเนื่องข้ามบท + breadcrumb
-- แถบความคืบหน้า (ตำแหน่งในคอร์ส)
-- เนื้อหาเป็น **component จริง** (ไม่ใช่ markdown ดิบ): paragraph, heading, code (มีปุ่ม copy + syntax highlight), list, checklist, flow diagram, table, callout, definitions
-
-## รัน local
-
-```bash
-npm install
-npm run dev
-# เปิด http://localhost:3000
-```
+- หน้าแรกเลือกคอร์ส, Sidebar มี **ตัวสลับคอร์ส** + ค้นหา + ย่อ/ขยายบท + ไฮไลต์หน้าปัจจุบัน
+- ปุ่มก่อนหน้า/ถัดไปต่อเนื่องข้ามบท + breadcrumb (รู้คอร์ส), แถบความคืบหน้า
+- บล็อกเนื้อหา: paragraph, heading, code (copy + syntax highlight), list, checklist, flow, table, callout, definitions
+- ดีไซน์ technical-docs (OKLCH, IBM Plex Sans/Thai + JetBrains Mono), responsive, reduced-motion
 
 ## โครงสร้างเนื้อหา
 
-เนื้อหาเก็บเป็น **structured data** (ไม่ render markdown):
-
-- `lib/course/types.ts` — ชนิดของ block (heading/paragraph/code/list/checklist/flow/table/callout/definitions) และ `Lesson`/`Section`
-- `lib/course/lesson-01.ts` … `lesson-11.ts` — เนื้อหาแต่ละบท (แก้บทไหนก็แก้ไฟล์นั้น)
-- `lib/course/index.ts` — รวมบทเรียงลำดับเป็น `course[]` (เลขบท/หัวข้อย่อยคำนวณจากตำแหน่งใน array นี้)
-- `lib/course/nav.ts` — สร้างลำดับหน้า, prev/next, สารบัญ (มี unit test ที่ `nav.test.ts`)
-
-**เพิ่ม/ลบบท:** แก้ลำดับใน `lib/course/index.ts` แล้วเลขบท + route จะอัปเดตเอง
-**แก้เนื้อหาในบท:** แก้ array `blocks` ใน `lib/course/lesson-XX.ts`
-
-## โครงสร้างหน้า/คอมโพเนนต์
-
-- `app/page.tsx` — หน้าแรก (สารบัญ)
-- `app/lesson/[lesson]/[section]/page.tsx` — หน้าหัวข้อย่อย (static ทุกหน้า ผ่าน `generateStaticParams`)
-- `app/layout.tsx` — Sidebar + progress + เนื้อหา
-- `components/blocks/*` — ตัว render ของแต่ละ block
-- `components/CodeBlock.tsx` + `CopyButton.tsx` — code + ปุ่ม copy (highlight.js ฝั่ง server)
-- `components/Sidebar.tsx` / `Breadcrumb.tsx` / `LessonNav.tsx` / `CourseProgress.tsx`
-
-## ทดสอบ
-
-```bash
-npm test
+```text
+lib/course/
+  types.ts            Block / Section / Lesson / Course
+  nav.ts              flatSections / getSection / prevNext / courseNav (href: /c/{slug}/{l}/{s})
+  index.ts            registry: courses[] + getCourse(slug)
+  api-integration.ts  คอร์ส API Integration (อ้าง lesson-01..11.ts)
+  lesson-01..11.ts    เนื้อหาคอร์ส API Integration
+  vibe-code.ts        คอร์ส Vibe Code (อ้าง vibe-code/lesson-01..10.ts)
+  vibe-code/lesson-01..10.ts   เนื้อหาคอร์ส Vibe Code
 ```
 
-## Build / Deploy
+**เพิ่มคอร์สใหม่:** สร้าง `lib/course/<slug>.ts` (export `Course`) แล้วเพิ่มใน `courses[]` ที่ `index.ts`
+**แก้เนื้อหา:** แก้ array `blocks` ในไฟล์ lesson ของคอร์สนั้น — เลขบท/route อัปเดตจากลำดับให้เอง
+
+แหล่งเนื้อหาต้นฉบับ: `api_integration_private_course_1day.md`, `docs/vibe-code-website-bootcamp/`
+
+## คำสั่ง
 
 ```bash
-npm run build
-npm start
+npm install
+npm run dev      # http://localhost:3000  (ใช้ตอนแก้เนื้อหา — hot reload)
+npm test         # unit test ของ lib/course/nav
+npm run build    # build static ทุกหน้า ทั้ง 2 คอร์ส
 ```
 
-Deploy: push ขึ้น GitHub แล้วเชื่อม Vercel หรือใช้ `vercel` CLI (ทุกหน้าเป็น static)
+> ขณะแก้เนื้อหาให้ใช้ `npm run dev` อย่างเดียว — อย่ารัน `npm run build`/`npm start` ทับขณะมี server รันอยู่ (จะทำให้ CSS chunk hash ไม่ตรงแล้วหน้าโหลด CSS ไม่ขึ้น)
+
+## Deploy
+
+push ขึ้น GitHub แล้วเชื่อม Vercel หรือใช้ `vercel` CLI (ทุกหน้าเป็น static)
+
+## ดีไซน์
+
+ทิศทางและ design system อยู่ใน `PRODUCT.md` + `DESIGN.md` (ใช้ร่วมกับเครื่องมือ impeccable)

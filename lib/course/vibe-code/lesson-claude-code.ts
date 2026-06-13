@@ -145,6 +145,197 @@ npm install -g @anthropic-ai/claude-code`,
       ],
     },
     {
+      title: 'เขียน CLAUDE.md ให้โปรเจกต์ของคุณ',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'CLAUDE.md คือไฟล์ที่อยู่ root โปรเจกต์ ซึ่ง Claude อ่านทุกครั้งที่เริ่มทำงาน ใส่คำสั่ง มาตรฐานโค้ด และข้อห้ามไว้ที่นี่ จะได้ไม่ต้องบอกซ้ำทุกรอบ ช่วยให้ได้งานตรงขึ้นและประหยัด token',
+        },
+        {
+          type: 'paragraph',
+          text: 'วิธีเริ่มที่ง่ายสุดคือรัน /init ให้ Claude สร้างโครงให้ก่อน แล้วค่อยปรับแต่งให้ตรงกับโปรเจกต์ของคุณ',
+        },
+        { type: 'heading', text: 'ตัวอย่าง CLAUDE.md สำหรับเว็บ Next.js + Tailwind' },
+        {
+          type: 'code',
+          lang: 'text',
+          code: `# My Website Project
+
+## คำสั่งที่ใช้บ่อย
+- Dev: npm run dev   (เปิด http://localhost:3000)
+- Build: npm run build
+- Test: npm test
+- Format / Lint: npm run lint
+
+## Code style
+- ใช้ Tailwind สำหรับ styling ทั้งหมด ไม่เขียน CSS แยก
+- ตั้งชื่อ Component แบบ PascalCase (Hero.tsx, PricingCard.tsx)
+- ใช้ const เป็นหลัก ตั้งชื่อ variable แบบ camelCase
+
+## Next.js
+- ใช้ App Router (โฟลเดอร์ app/)
+- Server Component เป็น default ใส่ "use client" เฉพาะที่ต้องโต้ตอบ
+- รูปใช้ next/image ไม่ใช้แท็ก img
+
+## Supabase / Environment
+- เก็บค่า config ใน .env.local (ห้าม commit ขึ้น git)
+- ห้าม log หรือ commit คีย์ของ Supabase ลงในโค้ด
+
+## Git
+- แตก branch ต่อฟีเจอร์: git checkout -b feature/ชื่อฟีเจอร์
+- commit บ่อย ๆ ด้วยข้อความที่สื่อความหมาย
+- เช็กว่า npm run build ผ่านก่อนส่งงาน`,
+        },
+        {
+          type: 'callout',
+          variant: 'warning',
+          title: 'อย่าใส่ความลับใน CLAUDE.md',
+          text: 'ห้ามเขียน API key, password หรือ secret ลงใน CLAUDE.md เพราะถูกอ่านทุกครั้งและมักถูก commit ขึ้น git — ให้เก็บไว้ใน .env.local เท่านั้น',
+        },
+        {
+          type: 'checklist',
+          items: [
+            'มีคำสั่งรัน/build/test ที่โปรเจกต์ใช้',
+            'มี code style และ convention ที่อยากให้ทำตาม',
+            'บอกโครงสร้างโฟลเดอร์/ไฟล์สำคัญ',
+            'มีข้อห้าม เช่น “ห้าม commit .env”',
+          ],
+        },
+      ],
+    },
+    {
+      title: 'สั่งงาน Claude ให้ได้ผล',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'ผลลัพธ์ที่ได้ขึ้นกับความชัดของคำสั่ง หลักง่าย ๆ คือ สั่งทีละงานเล็ก เจาะจงไฟล์/เป้าหมาย และให้ context ให้ครบ',
+        },
+        {
+          type: 'table',
+          head: ['❌ คลุมเครือ', '✅ ชัดเจน'],
+          rows: [
+            [
+              'ตั้งค่า authentication',
+              'เพิ่มฟอร์ม Sign Up ที่ app/signup/page.tsx มีช่อง email/password, validate แล้วเรียก Supabase signUp ตอน submit',
+            ],
+            [
+              'ทำให้ดูดีขึ้น',
+              'ปรับ Hero ให้มีปุ่ม CTA และจัดให้ตรงกับดีไซน์ใน @designs/home.png',
+            ],
+            [
+              'เพิ่ม validation',
+              'เพิ่ม validate email ในฟอร์ม Sign Up ถ้าผิดให้ขึ้นข้อความ error ใต้ช่อง แล้วรันเทสต์',
+            ],
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'key',
+          title: 'กฎง่าย ๆ',
+          text: 'ถ้าอธิบายสิ่งที่ต้องการได้ใน 1 ประโยค — สั่งทำเลย ถ้าต้องมี 3 ขั้นขึ้นไป — ใช้ Plan mode (กด Shift+Tab) ให้วางแผนก่อน',
+        },
+        { type: 'heading', text: 'ใช้ Plan mode กับงานใหญ่' },
+        {
+          type: 'list',
+          ordered: true,
+          items: [
+            'กด Shift+Tab จนถึงโหมด Plan',
+            'ให้ Claude สำรวจโค้ดและเสนอแผน (ยังไม่แก้ไฟล์)',
+            'อ่านแผน ปรับจนพอใจ',
+            'กด Shift+Tab กลับโหมดปกติ แล้วบอกให้ลงมือทำตามแผน',
+          ],
+        },
+      ],
+    },
+    {
+      title: 'ตรวจงานก่อนเชื่อ (Review → Run → Test)',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'Claude เก่ง แต่ก็ผิดได้แบบดูสมเหตุสมผล อย่ากด accept รวดเดียว ให้ตรวจ 3 ขั้นนี้ทุกครั้งก่อน commit',
+        },
+        {
+          type: 'flow',
+          steps: [
+            'Review — อ่าน diff ที่ Claude แก้',
+            'Run — npm run dev แล้ววาง screenshot เทียบ',
+            'Test — npm test ให้ผ่าน',
+            'Commit',
+          ],
+        },
+        {
+          type: 'list',
+          items: [
+            'Review: โค้ดอ่านรู้เรื่องไหม มีบั๊กชัด ๆ ไหม ตรง code style ไหม',
+            'Run: หน้าเว็บขึ้นจริงไหม ตรงกับที่สั่งและดีไซน์ไหม',
+            'Test: เทสต์ผ่านหมดไหม ถ้าไม่ผ่านให้บอก Claude ว่าเทสต์ไหน error อะไร',
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'note',
+          title: 'เครื่องมือช่วยตรวจ',
+          text: 'ใช้ /code-review ให้ Claude รีวิวโค้ดของตัวเอง · กด Esc เพื่อหยุดดูระหว่างทาง · ถ้าพังให้กด Esc สองครั้งหรือ /rewind ย้อนกลับ checkpoint',
+        },
+        {
+          type: 'callout',
+          variant: 'key',
+          title: 'ถ้าไม่เข้าใจ อย่าเพิ่งกด Allow',
+          text: 'ถ้า Claude ขออนุญาตทำอะไรที่คุณยังไม่เข้าใจ ให้กด Esc แล้วถามก่อนว่ากำลังจะทำอะไรและทำไม',
+        },
+      ],
+    },
+    {
+      title: 'Git & ความปลอดภัย',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'commit คือ checkpoint ของงานจริง (แยกจาก /rewind ที่เป็นของ session) ส่วน branch ใช้แยกงานไม่ให้กระทบของเดิม และต้องระวังเรื่องความลับเป็นพิเศษ',
+        },
+        {
+          type: 'code',
+          lang: 'bash',
+          code: `# เริ่มฟีเจอร์ใหม่
+git checkout -b feature/add-pricing
+
+# ทำงานกับ Claude แล้ว commit เมื่อเสร็จก้อนหนึ่ง
+git commit -m "Add pricing section with 3 tiers"
+
+# ส่งขึ้น GitHub
+git push -u origin feature/add-pricing`,
+        },
+        {
+          type: 'paragraph',
+          text: 'หรือจะให้ Claude commit ให้ก็ได้ โดยบอกว่า “commit พร้อมข้อความที่สื่อความหมาย”',
+        },
+        { type: 'heading', text: 'คำสั่งไหนปลอดภัย / อันตราย' },
+        {
+          type: 'table',
+          head: ['คำสั่ง', 'ปลอดภัย?', 'เพราะ'],
+          rows: [
+            ['git checkout -b ...', 'ปลอดภัย', 'แยกงาน ไม่กระทบ main'],
+            ['git revert', 'ปลอดภัย', 'ย้อนโดยไม่ลบประวัติ'],
+            ['npm install <pkg>', 'ระวัง', 'โอเค แต่ดูชื่อ package ให้ดี'],
+            ['commit ไฟล์ .env', 'อันตราย', 'ความลับหลุดขึ้น git'],
+            ['git reset --hard', 'อันตราย', 'ลบงานที่ยังไม่ commit'],
+            ['git push --force', 'อันตราย', 'ทำลายประวัติของทีม'],
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'warning',
+          title: 'ห้าม commit ความลับ',
+          text: 'ใส่ .env* ไว้ใน .gitignore เสมอ อย่าใส่ key/password ลงในโค้ดหรือ CLAUDE.md และถ้าคีย์หลุดให้รีบ reset คีย์ใหม่ทันที',
+        },
+        {
+          type: 'callout',
+          variant: 'note',
+          title: 'ความปลอดภัยของ permission',
+          text: 'เริ่มที่โหมด Default (เห็นทุกอย่างก่อนอนุมัติ) อ่านคำสั่งก่อนกด Allow ทุกครั้ง และอย่าใช้โหมด bypass-permissions นอก sandbox',
+        },
+      ],
+    },
+    {
       title: 'Slash Commands ที่ควรรู้',
       blocks: [
         {

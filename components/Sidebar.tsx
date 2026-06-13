@@ -1,90 +1,29 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import type { TocItem } from '@/lib/toc'
+import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import type { NavLesson } from '@/lib/course/nav'
 
-function flatten(items: TocItem[]): TocItem[] {
-  return items.flatMap((i) => [i, ...flatten(i.children)])
-}
-
-function matches(item: TocItem, q: string): boolean {
-  if (!q) return true
-  if (item.title.toLowerCase().includes(q.toLowerCase())) return true
-  return item.children.some((c) => matches(c, q))
-}
-
-function TocList({
-  items,
-  query,
-  activeId,
-  onClick,
-}: {
-  items: TocItem[]
-  query: string
-  activeId: string | null
-  onClick: (id: string) => void
-}) {
-  const visible = items.filter((i) => matches(i, query))
-  if (visible.length === 0) return null
-  return (
-    <ul className="space-y-1">
-      {visible.map((item) => (
-        <li key={item.id}>
-          <a
-            href={`#${item.id}`}
-            aria-current={activeId === item.id ? 'true' : undefined}
-            onClick={(e) => {
-              e.preventDefault()
-              onClick(item.id)
-            }}
-            className={`block rounded px-2 py-1 text-sm transition ${
-              activeId === item.id
-                ? 'bg-blue-100 font-semibold text-blue-700'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
-            style={{ paddingLeft: `${(item.level - 1) * 12 + 8}px` }}
-          >
-            {item.title}
-          </a>
-          {item.children.length > 0 && (
-            <TocList
-              items={item.children}
-              query={query}
-              activeId={activeId}
-              onClick={onClick}
-            />
-          )}
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-export default function Sidebar({ toc }: { toc: TocItem[] }) {
+export default function Sidebar({ nav }: { nav: NavLesson[] }) {
+  const pathname = usePathname()
   const [query, setQuery] = useState('')
-  const [activeId, setActiveId] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
-  const scrollingRef = useRef(false)
-  const ids = useMemo(() => flatten(toc).map((i) => i.id), [toc])
+  const [expanded, setExpanded] = useState<Set<number>>(new Set())
 
+  const activeLesson = useMemo(() => {
+    const found = nav.find((l) => l.sections.some((s) => s.href === pathname))
+    return found?.lessonNum ?? null
+  }, [nav, pathname])
+
+  // auto-expand the lesson that contains the current page
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (scrollingRef.current) return
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActiveId(visible[0].target.id)
-      },
-      { rootMargin: '0px 0px -70% 0px', threshold: 0 },
-    )
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
-  }, [ids])
+    if (activeLesson != null) {
+      setExpanded((prev) => new Set(prev).add(activeLesson))
+    }
+  }, [activeLesson])
 
+  // mobile drawer: Escape to close + body scroll-lock
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -98,32 +37,40 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
     }
   }, [open])
 
-  const handleClick = (id: string) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    scrollingRef.current = true
-    setActiveId(id)
-    setOpen(false)
-    el.scrollIntoView({ behavior: 'smooth' })
-    const done = () => {
-      scrollingRef.current = false
-    }
-    if ('onscrollend' in window) {
-      window.addEventListener('scrollend', done, { once: true })
-    } else {
-      setTimeout(done, 700)
-    }
-  }
+  const q = query.trim().toLowerCase()
+  const visible = nav
+    .map((lesson) => {
+      const lessonMatch =
+        lesson.title.toLowerCase().includes(q) || `บทที่ ${lesson.lessonNum}`.includes(q)
+      const sections = q
+        ? lesson.sections.filter(
+            (s) =>
+              lessonMatch ||
+              s.title.toLowerCase().includes(q) ||
+              s.sectionNum.includes(q),
+          )
+        : lesson.sections
+      return { ...lesson, sections }
+    })
+    .filter((lesson) => (q ? lesson.sections.length > 0 : true))
+
+  const toggle = (n: number) =>
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(n)) next.delete(n)
+      else next.add(n)
+      return next
+    })
 
   return (
     <>
       <button
         onClick={() => setOpen((v) => !v)}
         className="fixed left-4 top-3 z-30 rounded bg-slate-800 px-3 py-2 text-sm text-white lg:hidden"
-        aria-label="เปิด/ปิดสารบัญ"
+        aria-label="เปิด/ปิดเมนูบทเรียน"
         aria-expanded={open}
       >
-        ☰ สารบัญ
+        ☰ บทเรียน
       </button>
 
       {open && (
@@ -139,6 +86,13 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
+        <Link
+          href="/"
+          onClick={() => setOpen(false)}
+          className="mb-3 block text-sm font-semibold text-slate-800 hover:text-blue-600"
+        >
+          API Integration Course
+        </Link>
         <input
           type="search"
           value={query}
@@ -146,13 +100,46 @@ export default function Sidebar({ toc }: { toc: TocItem[] }) {
           placeholder="ค้นหาหัวข้อ..."
           className="mb-4 w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
         />
-        <nav aria-label="สารบัญ">
-          <TocList
-            items={toc}
-            query={query}
-            activeId={activeId}
-            onClick={handleClick}
-          />
+        <nav aria-label="บทเรียน" className="space-y-1">
+          {visible.map((lesson) => {
+            const isExpanded = q !== '' || expanded.has(lesson.lessonNum)
+            return (
+              <div key={lesson.lessonNum}>
+                <button
+                  onClick={() => toggle(lesson.lessonNum)}
+                  className="flex w-full items-center justify-between rounded px-2 py-1 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                  aria-expanded={isExpanded}
+                >
+                  <span>
+                    บทที่ {lesson.lessonNum}: {lesson.title}
+                  </span>
+                  <span className="ml-2 text-xs text-slate-400" aria-hidden="true">
+                    {isExpanded ? '▾' : '▸'}
+                  </span>
+                </button>
+                {isExpanded && (
+                  <ul className="mb-1 space-y-0.5">
+                    {lesson.sections.map((s) => (
+                      <li key={s.href}>
+                        <Link
+                          href={s.href}
+                          onClick={() => setOpen(false)}
+                          aria-current={pathname === s.href ? 'page' : undefined}
+                          className={`block rounded px-2 py-1 pl-5 text-sm transition ${
+                            pathname === s.href
+                              ? 'bg-blue-100 font-medium text-blue-700'
+                              : 'text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          {s.sectionNum} {s.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )
+          })}
         </nav>
       </aside>
     </>

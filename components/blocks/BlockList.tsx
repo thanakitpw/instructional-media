@@ -5,6 +5,9 @@ import FlowDiagram from './FlowDiagram'
 import Checklist from './Checklist'
 import DataTable from './DataTable'
 import Definitions from './Definitions'
+import ImageBlock from './ImageBlock'
+import Cards from './Cards'
+import Hero from './Hero'
 
 export default function BlockList({ blocks }: { blocks: Block[] }) {
   return (
@@ -66,6 +69,30 @@ export default function BlockList({ blocks }: { blocks: Block[] }) {
             )
           case 'definitions':
             return <Definitions key={i} items={block.items} />
+          case 'image':
+            return (
+              <ImageBlock
+                key={i}
+                src={block.src}
+                alt={block.alt}
+                caption={block.caption}
+              />
+            )
+          case 'cards':
+            return <Cards key={i} items={block.items} columns={block.columns} />
+          case 'hero':
+            return <Hero key={i} title={block.title} subtitle={block.subtitle} />
+          case 'columns':
+            return (
+              <div key={i} className="my-6 grid gap-5 md:grid-cols-2 md:items-center">
+                <div>
+                  <BlockList blocks={block.left} />
+                </div>
+                <div>
+                  <BlockList blocks={block.right} />
+                </div>
+              </div>
+            )
           default:
             return null
         }

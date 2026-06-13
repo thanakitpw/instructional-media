@@ -8,6 +8,15 @@ export type Block =
   | { type: 'table'; head: string[]; rows: string[][] }
   | { type: 'callout'; variant?: 'note' | 'warning' | 'key'; title?: string; text: string }
   | { type: 'definitions'; items: { term: string; desc: string }[] }
+  // ── layout blocks ──────────────────────────────────────────────────────────
+  | { type: 'image'; src: string; alt: string; caption?: string }
+  | {
+      type: 'cards'
+      columns?: 2 | 3
+      items: { meta?: string; title: string; desc?: string; href?: string }[]
+    }
+  | { type: 'columns'; left: Block[]; right: Block[] }
+  | { type: 'hero'; title: string; subtitle?: string }
 
 export interface Section {
   title: string

@@ -15,22 +15,21 @@ export default function CopyButton({ code }: { code: string }) {
       clearTimeout(timerRef.current)
       timerRef.current = setTimeout(() => setCopied(false), 1500)
     } catch {
-      /* ไม่ทำอะไรถ้า clipboard ใช้ไม่ได้ */
+      /* clipboard ใช้ไม่ได้ */
     }
   }
 
   return (
-    <>
-      <button
-        onClick={copy}
-        className="absolute right-2 top-2 z-10 rounded bg-slate-700 px-2 py-1 text-xs text-slate-100 opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100"
-        aria-label={copied ? 'คัดลอกแล้ว' : 'คัดลอกโค้ด'}
-      >
-        {copied ? 'Copied!' : 'Copy'}
-      </button>
+    <button
+      onClick={copy}
+      className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white focus-visible:outline-none"
+      aria-label={copied ? 'คัดลอกแล้ว' : 'คัดลอกโค้ด'}
+    >
+      <span aria-hidden="true">{copied ? '✓' : '⧉'}</span>
+      {copied ? 'Copied' : 'Copy'}
       <span role="status" className="sr-only">
         {copied ? 'คัดลอกแล้ว' : ''}
       </span>
-    </>
+    </button>
   )
 }

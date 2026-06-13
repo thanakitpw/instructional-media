@@ -1,10 +1,16 @@
 import type { ReactNode } from 'react'
 
-const styles: Record<string, string> = {
-  note: 'border-blue-400 bg-blue-50 text-blue-900',
-  warning: 'border-amber-400 bg-amber-50 text-amber-900',
-  key: 'border-emerald-400 bg-emerald-50 text-emerald-900',
-}
+const VARIANTS = {
+  note: 'border-note/25 bg-note-soft',
+  warning: 'border-warning/35 bg-warning-soft',
+  key: 'border-key/30 bg-key-soft',
+} as const
+
+const DOT = {
+  note: 'bg-note',
+  warning: 'bg-warning',
+  key: 'bg-key',
+} as const
 
 export default function Callout({
   variant = 'note',
@@ -16,9 +22,17 @@ export default function Callout({
   children: ReactNode
 }) {
   return (
-    <div className={`my-4 rounded-lg border-l-4 p-4 ${styles[variant] ?? styles.note}`}>
-      {title && <p className="mb-1 font-semibold">{title}</p>}
-      <p className="leading-relaxed">{children}</p>
+    <div
+      className={`my-5 flex gap-3 rounded-lg border px-4 py-3.5 ${VARIANTS[variant] ?? VARIANTS.note}`}
+    >
+      <span
+        className={`mt-[0.45rem] h-2 w-2 flex-none rounded-full ${DOT[variant] ?? DOT.note}`}
+        aria-hidden="true"
+      />
+      <div>
+        {title && <p className="mb-0.5 font-semibold text-ink">{title}</p>}
+        <p className="leading-relaxed text-ink-soft">{children}</p>
+      </div>
     </div>
   )
 }

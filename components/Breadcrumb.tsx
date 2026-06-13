@@ -12,22 +12,19 @@ export default function Breadcrumb({
   sectionTitle: string
 }) {
   return (
-    <nav className="mb-4 text-sm text-slate-500" aria-label="breadcrumb">
-      <Link href="/" className="hover:text-blue-600">
+    <nav
+      className="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-muted"
+      aria-label="breadcrumb"
+    >
+      <Link href="/" className="transition hover:text-accent">
         หน้าแรก
       </Link>
-      <span className="mx-2" aria-hidden="true">
-        /
-      </span>
+      <span aria-hidden="true">/</span>
       <span>
         บทที่ {lessonNum}: {lessonTitle}
       </span>
-      <span className="mx-2" aria-hidden="true">
-        /
-      </span>
-      <span className="text-slate-700">
-        {sectionNum} {sectionTitle}
-      </span>
+      <span aria-hidden="true">/</span>
+      <span className="text-ink-soft">{sectionTitle}</span>
     </nav>
   )
 }

@@ -16,14 +16,12 @@ export default function Sidebar({ nav }: { nav: NavLesson[] }) {
     return found?.lessonNum ?? null
   }, [nav, pathname])
 
-  // auto-expand the lesson that contains the current page
   useEffect(() => {
     if (activeLesson != null) {
       setExpanded((prev) => new Set(prev).add(activeLesson))
     }
   }, [activeLesson])
 
-  // mobile drawer: Escape to close + body scroll-lock
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -66,75 +64,103 @@ export default function Sidebar({ nav }: { nav: NavLesson[] }) {
     <>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="fixed left-4 top-3 z-30 rounded bg-slate-800 px-3 py-2 text-sm text-white lg:hidden"
+        className="fixed left-4 top-3 z-30 inline-flex items-center gap-2 rounded-lg bg-ink px-3 py-2 text-sm font-medium text-bg shadow-sm transition hover:bg-ink-soft lg:hidden"
         aria-label="เปิด/ปิดเมนูบทเรียน"
         aria-expanded={open}
       >
-        ☰ บทเรียน
+        <span aria-hidden="true">☰</span> บทเรียน
       </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-10 bg-black/30 lg:hidden"
+          className="fixed inset-0 z-10 bg-ink/40 backdrop-blur-[1px] lg:hidden"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-20 w-72 overflow-y-auto border-r border-slate-200 bg-white p-4 pt-16 transition-transform lg:translate-x-0 lg:pt-4 ${
+        className={`fixed inset-y-0 left-0 z-20 flex w-72 flex-col border-r border-border bg-surface transition-transform duration-200 ease-out lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <Link
-          href="/"
-          onClick={() => setOpen(false)}
-          className="mb-3 block text-sm font-semibold text-slate-800 hover:text-blue-600"
+        <div className="border-b border-border px-5 pb-4 pt-5 lg:pt-5">
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className="block text-[0.95rem] font-semibold tracking-tight text-ink transition hover:text-accent"
+          >
+            API Integration
+            <span className="block text-xs font-normal text-muted">
+              Web &amp; Mobile App · คอร์ส
+            </span>
+          </Link>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="ค้นหาหัวข้อ…"
+            className="mt-4 w-full rounded-lg border border-border bg-elevated px-3 py-2 text-sm text-ink placeholder:text-muted transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent-soft"
+          />
+        </div>
+
+        <nav
+          aria-label="บทเรียน"
+          className="flex-1 space-y-0.5 overflow-y-auto px-3 py-3"
         >
-          API Integration Course
-        </Link>
-        <input
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="ค้นหาหัวข้อ..."
-          className="mb-4 w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-        />
-        <nav aria-label="บทเรียน" className="space-y-1">
           {visible.map((lesson) => {
             const isExpanded = q !== '' || expanded.has(lesson.lessonNum)
+            const isActiveLesson = lesson.lessonNum === activeLesson
             return (
               <div key={lesson.lessonNum}>
                 <button
                   onClick={() => toggle(lesson.lessonNum)}
-                  className="flex w-full items-center justify-between rounded px-2 py-1 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                  className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm font-medium transition hover:bg-bg"
                   aria-expanded={isExpanded}
                 >
-                  <span>
-                    บทที่ {lesson.lessonNum}: {lesson.title}
+                  <span
+                    className={`font-mono text-[0.7rem] tabular-nums ${
+                      isActiveLesson ? 'text-accent' : 'text-muted'
+                    }`}
+                  >
+                    {String(lesson.lessonNum).padStart(2, '0')}
                   </span>
-                  <span className="ml-2 text-xs text-slate-400" aria-hidden="true">
+                  <span className="flex-1 truncate text-ink">{lesson.title}</span>
+                  <span
+                    className="text-[0.65rem] text-muted transition-transform"
+                    aria-hidden="true"
+                  >
                     {isExpanded ? '▾' : '▸'}
                   </span>
                 </button>
                 {isExpanded && (
-                  <ul className="mb-1 space-y-0.5">
-                    {lesson.sections.map((s) => (
-                      <li key={s.href}>
-                        <Link
-                          href={s.href}
-                          onClick={() => setOpen(false)}
-                          aria-current={pathname === s.href ? 'page' : undefined}
-                          className={`block rounded px-2 py-1 pl-5 text-sm transition ${
-                            pathname === s.href
-                              ? 'bg-blue-100 font-medium text-blue-700'
-                              : 'text-slate-600 hover:bg-slate-100'
-                          }`}
-                        >
-                          {s.sectionNum} {s.title}
-                        </Link>
-                      </li>
-                    ))}
+                  <ul className="mb-1 ml-[1.15rem] space-y-px border-l border-border pl-2">
+                    {lesson.sections.map((s) => {
+                      const active = pathname === s.href
+                      return (
+                        <li key={s.href}>
+                          <Link
+                            href={s.href}
+                            onClick={() => setOpen(false)}
+                            aria-current={active ? 'page' : undefined}
+                            className={`flex items-baseline gap-2 rounded-md px-2.5 py-1.5 text-sm transition ${
+                              active
+                                ? 'bg-accent-soft font-medium text-accent'
+                                : 'text-ink-soft hover:bg-bg hover:text-ink'
+                            }`}
+                          >
+                            <span
+                              className={`font-mono text-[0.68rem] tabular-nums ${
+                                active ? 'text-accent' : 'text-muted'
+                              }`}
+                            >
+                              {s.sectionNum}
+                            </span>
+                            <span className="truncate">{s.title}</span>
+                          </Link>
+                        </li>
+                      )
+                    })}
                   </ul>
                 )}
               </div>

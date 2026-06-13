@@ -1,26 +1,83 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
+/* ── Design tokens (OKLCH, restrained product palette) ─────────────────────── */
+@theme {
+  --color-bg: oklch(0.992 0.001 264);
+  --color-surface: oklch(0.975 0.004 264);
+  --color-elevated: oklch(1 0 0);
+  --color-border: oklch(0.918 0.006 264);
+  --color-border-strong: oklch(0.86 0.008 264);
+
+  --color-ink: oklch(0.27 0.024 264);
+  --color-ink-soft: oklch(0.42 0.022 264);
+  --color-muted: oklch(0.55 0.018 264);
+
+  --color-accent: oklch(0.55 0.205 274);
+  --color-accent-hover: oklch(0.49 0.215 274);
+  --color-accent-soft: oklch(0.955 0.028 274);
+  --color-accent-fg: oklch(0.99 0 0);
+
+  --color-code-bg: oklch(0.205 0.014 264);
+
+  --color-note: oklch(0.55 0.205 274);
+  --color-note-soft: oklch(0.965 0.022 274);
+  --color-warning: oklch(0.62 0.16 64);
+  --color-warning-soft: oklch(0.965 0.03 80);
+  --color-key: oklch(0.55 0.12 168);
+  --color-key-soft: oklch(0.965 0.03 168);
+
+  --font-sans: var(--font-sans-latin), var(--font-sans-thai), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 3.5rem;
 }
 
-/* code block: ปล่อยให้ rehype-highlight คุมสี ไม่ให้ prose ทับ background */
-.prose pre {
-  background: #0f172a;
-  color: #e2e8f0;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  overflow-x: auto;
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-.prose :where(code):not(:where(pre code)) {
-  background: #f1f5f9;
-  padding: 0.15rem 0.35rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
+
+::selection {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-hover);
 }
-.prose :where(code):not(:where(pre code))::before,
-.prose :where(code):not(:where(pre code))::after {
-  content: "";
+
+/* highlight.js (github-dark) provides token colors; the CodeBlock wrapper owns
+   the surface, so neutralize the theme's own background/padding on the inner code. */
+pre code.hljs {
+  background: transparent;
+  padding: 0;
+}
+
+/* ── Motion: subtle per-route content entrance, reduced-motion safe ─────────── */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.page-enter {
+  animation: page-enter 200ms ease-out backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .page-enter {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

@@ -5,3 +5,10 @@ out/
 *.log
 .vercel
 *.tsbuildinfo
+
+# design tooling (impeccable, installed via npx — not part of the app)
+.claude/skills/impeccable/
+.cursor/
+.gemini/
+.agents/
+.impeccable/

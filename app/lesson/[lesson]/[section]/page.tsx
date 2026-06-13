@@ -23,16 +23,21 @@ export default async function SectionPage({
   const { prev, next } = prevNext(Number(lesson), Number(section))
 
   return (
-    <article className="mx-auto max-w-3xl">
+    <article className="page-enter">
       <Breadcrumb
         lessonNum={data.lessonNum}
         lessonTitle={data.lessonTitle}
         sectionNum={data.sectionNum}
         sectionTitle={data.section.title}
       />
-      <h1 className="mb-6 text-2xl font-bold text-slate-900">
-        {data.sectionNum} {data.section.title}
-      </h1>
+      <header className="mb-8">
+        <span className="font-mono text-sm font-medium tabular-nums text-accent">
+          {data.sectionNum}
+        </span>
+        <h1 className="mt-1.5 text-[1.7rem] font-bold leading-tight tracking-tight text-balance text-ink">
+          {data.section.title}
+        </h1>
+      </header>
       <BlockList blocks={data.section.blocks} />
       <LessonNav prev={prev} next={next} />
     </article>

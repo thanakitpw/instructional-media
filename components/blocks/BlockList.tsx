@@ -13,13 +13,16 @@ export default function BlockList({ blocks }: { blocks: Block[] }) {
         switch (block.type) {
           case 'heading':
             return (
-              <h3 key={i} className="mt-6 mb-2 text-lg font-semibold text-slate-800">
+              <h3
+                key={i}
+                className="mt-8 mb-2 text-[1.0625rem] font-semibold tracking-tight text-ink"
+              >
                 {block.text}
               </h3>
             )
           case 'paragraph':
             return (
-              <p key={i} className="my-3 leading-relaxed text-slate-700">
+              <p key={i} className="my-3.5 leading-[1.75] text-ink-soft text-pretty">
                 {block.text}
               </p>
             )
@@ -27,17 +30,23 @@ export default function BlockList({ blocks }: { blocks: Block[] }) {
             return <CodeBlock key={i} code={block.code} lang={block.lang} />
           case 'list':
             return block.ordered ? (
-              <ol key={i} className="my-3 list-decimal space-y-1 pl-6 text-slate-700">
+              <ol
+                key={i}
+                className="my-3.5 list-decimal space-y-1.5 pl-6 leading-relaxed text-ink-soft marker:font-medium marker:text-muted"
+              >
                 {block.items.map((it, j) => (
-                  <li key={j} className="leading-relaxed">
+                  <li key={j} className="pl-1">
                     {it}
                   </li>
                 ))}
               </ol>
             ) : (
-              <ul key={i} className="my-3 list-disc space-y-1 pl-6 text-slate-700">
+              <ul
+                key={i}
+                className="my-3.5 list-disc space-y-1.5 pl-6 leading-relaxed text-ink-soft marker:text-muted"
+              >
                 {block.items.map((it, j) => (
-                  <li key={j} className="leading-relaxed">
+                  <li key={j} className="pl-1">
                     {it}
                   </li>
                 ))}

@@ -9,15 +9,21 @@ export default function LessonNav({
   next: FlatSection | null
 }) {
   return (
-    <div className="mt-10 flex justify-between gap-4 border-t border-slate-200 pt-6">
+    <nav
+      className="mt-12 grid grid-cols-2 gap-3 border-t border-border pt-6"
+      aria-label="ไปบทก่อนหน้า / ถัดไป"
+    >
       {prev ? (
         <Link
           href={prev.href}
-          className="flex max-w-[45%] flex-col rounded-lg border border-slate-200 p-3 hover:border-blue-400 hover:bg-blue-50"
+          className="group flex flex-col gap-0.5 rounded-xl border border-border bg-elevated p-3.5 transition hover:border-accent hover:bg-accent-soft/50"
         >
-          <span className="text-xs text-slate-400">◀ ก่อนหน้า</span>
-          <span className="text-sm font-medium text-slate-700">
-            {prev.sectionNum} {prev.title}
+          <span className="text-xs text-muted">← ก่อนหน้า</span>
+          <span className="line-clamp-1 text-sm font-medium text-ink-soft transition group-hover:text-accent">
+            <span className="font-mono text-xs tabular-nums text-muted">
+              {prev.sectionNum}
+            </span>{' '}
+            {prev.title}
           </span>
         </Link>
       ) : (
@@ -26,16 +32,19 @@ export default function LessonNav({
       {next ? (
         <Link
           href={next.href}
-          className="flex max-w-[45%] flex-col rounded-lg border border-slate-200 p-3 text-right hover:border-blue-400 hover:bg-blue-50"
+          className="group flex flex-col gap-0.5 rounded-xl border border-border bg-elevated p-3.5 text-right transition hover:border-accent hover:bg-accent-soft/50"
         >
-          <span className="text-xs text-slate-400">ถัดไป ▶</span>
-          <span className="text-sm font-medium text-slate-700">
-            {next.sectionNum} {next.title}
+          <span className="text-xs text-muted">ถัดไป →</span>
+          <span className="line-clamp-1 text-sm font-medium text-ink-soft transition group-hover:text-accent">
+            <span className="font-mono text-xs tabular-nums text-muted">
+              {next.sectionNum}
+            </span>{' '}
+            {next.title}
           </span>
         </Link>
       ) : (
         <span />
       )}
-    </div>
+    </nav>
   )
 }

@@ -64,6 +64,8 @@ const lesson01: Lesson = {
             'เข้าใจการวัดผลด้วย GA4, Google Tag และ Search Console ในระดับเริ่มต้น',
             'รู้จัก Conversion และ Key Event ที่ควรวัดบน Landing Page',
             'ใช้เว็บไซต์ที่ทำเสร็จเป็น Portfolio หรือ Landing Page สำหรับธุรกิจได้',
+            'เข้าใจ Superpowers workflow สำหรับงาน AI coding ที่ซับซ้อนขึ้น',
+            'รู้วิธีจัดการ context และลด token waste เมื่อใช้ AI coding agent',
           ],
         },
         {
@@ -134,6 +136,8 @@ const lesson01: Lesson = {
             'Contact Form หรือ Lead Form เบื้องต้น',
             'Tracking Checklist',
             'Roadmap การต่อยอดเว็บไซต์',
+            'แนวทางใช้ Superpowers เป็น workflow ขั้นสูง',
+            'แนวทางเลือกเครื่องมือช่วย Context / Token Saving',
           ],
         },
         {

@@ -1,0 +1,79 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Integration and debugging flow</title>
+  <desc id="desc">Diagram showing integration path and debug checkpoints from client to API, backend, database, and external system.</desc>
+  <rect width="1200" height="720" fill="#f8fafc"/>
+  <text x="72" y="86" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Integration Flow + Debug Checkpoints</text>
+  <text x="72" y="120" font-family="Arial, sans-serif" font-size="18" fill="#475569">ใช้ไล่ปัญหาเมื่อ Web, Mobile, API หรือระบบปลายทางทำงานผิดปกติ</text>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#7c3aed"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .warn { fill: #fef2f2; stroke: #dc2626; stroke-width: 2; }
+      .check { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2; }
+      .text { font-family: Arial, sans-serif; fill: #0f172a; }
+      .muted { font-family: Arial, sans-serif; fill: #475569; }
+      .title { font-size: 20px; font-weight: 700; }
+      .small { font-size: 14px; }
+      .arrow { stroke: #7c3aed; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="box" x="70" y="210" width="170" height="92" rx="14"/>
+  <text class="text title" x="155" y="246" text-anchor="middle">Client</text>
+  <text class="muted small" x="155" y="276" text-anchor="middle">Web / Mobile</text>
+
+  <rect class="box" x="300" y="210" width="170" height="92" rx="14"/>
+  <text class="text title" x="385" y="246" text-anchor="middle">API</text>
+  <text class="muted small" x="385" y="276" text-anchor="middle">Endpoint + Method</text>
+
+  <rect class="box" x="530" y="210" width="170" height="92" rx="14"/>
+  <text class="text title" x="615" y="246" text-anchor="middle">Back-End</text>
+  <text class="muted small" x="615" y="276" text-anchor="middle">Validate + Logic</text>
+
+  <rect class="box" x="760" y="210" width="170" height="92" rx="14"/>
+  <text class="text title" x="845" y="246" text-anchor="middle">Database</text>
+  <text class="muted small" x="845" y="276" text-anchor="middle">Save + Query</text>
+
+  <rect class="box" x="990" y="210" width="170" height="92" rx="14"/>
+  <text class="text title" x="1075" y="246" text-anchor="middle">External</text>
+  <text class="muted small" x="1075" y="276" text-anchor="middle">Webhook / CRM</text>
+
+  <path class="arrow" d="M240 256 L300 256"/>
+  <path class="arrow" d="M470 256 L530 256"/>
+  <path class="arrow" d="M700 256 L760 256"/>
+  <path class="arrow" d="M930 256 L990 256"/>
+
+  <rect class="check" x="70" y="410" width="170" height="132" rx="14"/>
+  <text class="text title" x="155" y="446" text-anchor="middle">Check 1</text>
+  <text class="muted small" x="155" y="476" text-anchor="middle">URL ถูกไหม</text>
+  <text class="muted small" x="155" y="500" text-anchor="middle">Body ตรงไหม</text>
+  <text class="muted small" x="155" y="524" text-anchor="middle">Header ครบไหม</text>
+
+  <rect class="check" x="300" y="410" width="170" height="132" rx="14"/>
+  <text class="text title" x="385" y="446" text-anchor="middle">Check 2</text>
+  <text class="muted small" x="385" y="476" text-anchor="middle">Method ถูกไหม</text>
+  <text class="muted small" x="385" y="500" text-anchor="middle">Status code อะไร</text>
+  <text class="muted small" x="385" y="524" text-anchor="middle">Response ชัดไหม</text>
+
+  <rect class="check" x="530" y="410" width="170" height="132" rx="14"/>
+  <text class="text title" x="615" y="446" text-anchor="middle">Check 3</text>
+  <text class="muted small" x="615" y="476" text-anchor="middle">Validate ผ่านไหม</text>
+  <text class="muted small" x="615" y="500" text-anchor="middle">.env ครบไหม</text>
+  <text class="muted small" x="615" y="524" text-anchor="middle">Log บอกอะไร</text>
+
+  <rect class="check" x="760" y="410" width="170" height="132" rx="14"/>
+  <text class="text title" x="845" y="446" text-anchor="middle">Check 4</text>
+  <text class="muted small" x="845" y="476" text-anchor="middle">Table ถูกไหม</text>
+  <text class="muted small" x="845" y="500" text-anchor="middle">Field ครบไหม</text>
+  <text class="muted small" x="845" y="524" text-anchor="middle">Permission ผ่านไหม</text>
+
+  <rect class="warn" x="990" y="410" width="170" height="132" rx="14"/>
+  <text class="text title" x="1075" y="446" text-anchor="middle">Check 5</text>
+  <text class="muted small" x="1075" y="476" text-anchor="middle">API Key ถูกไหม</text>
+  <text class="muted small" x="1075" y="500" text-anchor="middle">Mapping ตรงไหม</text>
+  <text class="muted small" x="1075" y="524" text-anchor="middle">Retry / Log มีไหม</text>
+
+  <text class="muted small" x="600" y="620" text-anchor="middle">Debug rule: อย่าถามว่าแก้อย่างไรทันที ให้ถามก่อนว่า error เกิดที่ checkpoint ไหน</text>
+</svg>

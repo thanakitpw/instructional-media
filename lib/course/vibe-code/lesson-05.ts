@@ -23,6 +23,10 @@ const lesson05: Lesson = {
           text: 'ฟอร์มมีไว้เพื่อเก็บข้อมูลจากลูกค้า เช่น:',
         },
         {
+          type: 'paragraph',
+          text: 'สำหรับ Landing Page ฟอร์มคือจุดที่เปลี่ยนคนอ่านให้กลายเป็น Lead ดังนั้นฟอร์มควรถามข้อมูลเท่าที่จำเป็น และต้องทำให้ผู้ใช้รู้ว่าหลังจากส่งแล้วจะเกิดอะไรขึ้นต่อ',
+        },
+        {
           type: 'list',
           items: [
             'ชื่อ',
@@ -43,6 +47,24 @@ const lesson05: Lesson = {
           lang: 'text',
           code: 'ชื่อ:\nเบอร์โทร:\nLINE ID:\nบริการที่สนใจ:\nข้อความเพิ่มเติม:\nปุ่ม: ส่งข้อมูล',
         },
+        {
+          type: 'table',
+          head: ['Field', 'ใช้ทำอะไร', 'ควรบังคับกรอกไหม'],
+          rows: [
+            ['ชื่อ', 'ใช้เรียกผู้ติดต่อและแยก Lead', 'ควรบังคับ'],
+            ['เบอร์โทร', 'ใช้ติดต่อกลับโดยตรง', 'ขึ้นกับประเภทบริการ'],
+            ['อีเมล', 'ใช้ส่งข้อมูลหรือเอกสารต่อ', 'ไม่จำเป็นเสมอไป'],
+            ['LINE ID', 'เหมาะกับธุรกิจที่ปิดการขายผ่าน LINE', 'ควรบังคับถ้า CTA คือทัก LINE'],
+            ['บริการที่สนใจ', 'ช่วยคัดแยกความต้องการของลูกค้า', 'ควรมีถ้ามีหลายบริการ'],
+            ['ข้อความเพิ่มเติม', 'ให้ลูกค้าเล่ารายละเอียดเอง', 'ไม่ควรบังคับ'],
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'note',
+          title: 'ฟอร์มที่ดี',
+          text: 'ถามให้น้อยพอที่ผู้ใช้กล้ากรอก แต่พอให้คุณติดต่อกลับได้อย่างมีบริบท',
+        },
       ],
     },
     {
@@ -55,6 +77,10 @@ const lesson05: Lesson = {
         {
           type: 'paragraph',
           text: 'Supabase ใช้เป็นฐานข้อมูลสำหรับเก็บข้อมูลฟอร์ม',
+        },
+        {
+          type: 'paragraph',
+          text: 'ในคอร์สนี้ให้เข้าใจ Supabase เป็นที่เก็บข้อมูล Lead ก่อน ยังไม่จำเป็นต้องลงลึกระบบ Backend ทั้งหมด แนวคิดสำคัญคือเมื่อผู้ใช้ส่งฟอร์ม ข้อมูลควรถูกบันทึกไว้ในที่ที่คุณกลับมาดูได้',
         },
         {
           type: 'paragraph',
@@ -77,6 +103,21 @@ const lesson05: Lesson = {
           type: 'code',
           lang: 'text',
           code: 'leads\n- id\n- name\n- phone\n- line_id\n- email\n- service\n- message\n- created_at',
+        },
+        {
+          type: 'definitions',
+          items: [
+            { term: 'Table', desc: 'ตารางเก็บข้อมูล เช่น leads' },
+            { term: 'Row', desc: 'ข้อมูล 1 รายการ เช่น Lead 1 คนที่ส่งฟอร์มเข้ามา' },
+            { term: 'Column', desc: 'ช่องข้อมูล เช่น name, phone, service' },
+            { term: 'created_at', desc: 'เวลาที่ข้อมูลถูกสร้าง ใช้ดูว่า Lead เข้ามาเมื่อไร' },
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'warning',
+          title: 'ระวังข้อมูลส่วนบุคคล',
+          text: 'ถ้าเก็บเบอร์โทร อีเมล หรือ LINE ID ควรใช้ข้อมูลเท่าที่จำเป็น และควรมี Privacy Policy เมื่อเว็บเริ่มใช้งานจริง',
         },
       ],
     },
@@ -116,6 +157,21 @@ const lesson05: Lesson = {
           text: 'เมื่อเชื่อม GitHub กับ Vercel แล้ว ทุกครั้งที่ Push โค้ดขึ้น GitHub ระบบจะ Deploy ใหม่อัตโนมัติ',
         },
         {
+          type: 'paragraph',
+          text: 'หลัง Deploy แล้วให้คิดว่าเว็บอยู่ในสภาพแวดล้อมจริง ไม่ใช่แค่เครื่องของคุณ ปัญหาบางอย่างอาจเกิดเฉพาะ Production เช่น Environment Variables ไม่ครบ รูปภาพ path ผิด หรือ build ไม่ผ่าน',
+        },
+        {
+          type: 'table',
+          head: ['ขั้นตอน', 'สิ่งที่ต้องตรวจ'],
+          rows: [
+            ['Import Project', 'เลือก Repository ถูกต้องและ Framework เป็น Next.js'],
+            ['Environment Variables', 'ใส่ค่าที่จำเป็น เช่น Supabase URL หรือ API Key'],
+            ['Build', 'ดู log ถ้า build fail และอ่าน error หลัก'],
+            ['Production URL', 'เปิดเว็บจริงและเช็กทุก Section'],
+            ['Auto Deploy', 'Push รอบต่อไปแล้ว Vercel Deploy ใหม่หรือไม่'],
+          ],
+        },
+        {
           type: 'heading',
           text: 'Checklist หลัง Deploy',
         },
@@ -146,6 +202,10 @@ const lesson05: Lesson = {
         {
           type: 'heading',
           text: 'GA4 ใช้ทำอะไร',
+        },
+        {
+          type: 'paragraph',
+          text: 'เครื่องมือวัดผลเหล่านี้ช่วยให้คุณรู้ว่าเว็บถูกใช้งานอย่างไร ไม่ใช่แค่เดาว่าหน้าเว็บดีหรือไม่ดีจากความรู้สึก',
         },
         {
           type: 'paragraph',
@@ -188,6 +248,15 @@ const lesson05: Lesson = {
             'หน้าเว็บมีปัญหา SEO เทคนิคไหม',
           ],
         },
+        {
+          type: 'table',
+          head: ['เครื่องมือ', 'เหมาะกับการดูอะไร', 'ตัวอย่างคำถามที่ตอบได้'],
+          rows: [
+            ['GA4', 'พฤติกรรมผู้ใช้ในเว็บ', 'คนเข้าเว็บจากช่องทางไหนและกดอะไรบ้าง'],
+            ['Google Tag', 'จัดการ tag และ event', 'จะติด event ปุ่ม LINE โดยไม่แก้โค้ดหลายรอบได้อย่างไร'],
+            ['Search Console', 'การแสดงผลบน Google Search', 'Google index เว็บหรือยัง และคนค้นคำอะไรแล้วเจอ'],
+          ],
+        },
       ],
     },
     {
@@ -200,6 +269,10 @@ const lesson05: Lesson = {
         {
           type: 'paragraph',
           text: 'Conversion คือการกระทำสำคัญที่อยากให้ผู้ใช้ทำบนเว็บ',
+        },
+        {
+          type: 'paragraph',
+          text: 'ก่อนติด Tracking ให้กำหนดก่อนว่า Action ไหนสำคัญที่สุด ถ้าเว็บต้องการ Lead การส่งฟอร์มหรือกด LINE อาจสำคัญกว่าจำนวน page view',
         },
         {
           type: 'paragraph',
@@ -231,6 +304,17 @@ const lesson05: Lesson = {
           type: 'paragraph',
           text: 'เว็บที่ดีไม่ใช่แค่สวย แต่ควรวัดผลได้ด้วย',
         },
+        {
+          type: 'table',
+          head: ['เป้าหมายเว็บ', 'Conversion ที่ควรวัด', 'ตัวอย่าง Event Name'],
+          rows: [
+            ['รับ Lead', 'ส่งฟอร์ม', 'submit_lead_form'],
+            ['ให้ลูกค้าทัก LINE', 'กดปุ่ม LINE', 'click_line'],
+            ['ให้คนโทรติดต่อ', 'กดปุ่มโทร', 'click_call'],
+            ['ขายคอร์ส', 'กดสมัครเรียน', 'click_apply_course'],
+            ['โชว์ผลงาน', 'กดดู Portfolio', 'click_portfolio'],
+          ],
+        },
       ],
     },
     {
@@ -243,6 +327,10 @@ const lesson05: Lesson = {
         {
           type: 'paragraph',
           text: 'สิ่งที่ควรดูใน PageSpeed Insights:',
+        },
+        {
+          type: 'paragraph',
+          text: 'Performance ไม่ใช่แค่คะแนนสวย ๆ แต่เกี่ยวกับประสบการณ์ผู้ใช้ ถ้าเว็บโหลดช้า ผู้ใช้อาจออกก่อนเห็น Offer หรือ CTA',
         },
         {
           type: 'list',
@@ -283,6 +371,12 @@ const lesson05: Lesson = {
             'ตั้ง Title และ Description',
           ],
         },
+        {
+          type: 'callout',
+          variant: 'note',
+          title: 'เริ่มแก้จากสิ่งที่กระทบมาก',
+          text: 'ถ้าคะแนนไม่ดี ให้เริ่มจากรูปภาพขนาดใหญ่ ฟอนต์ที่โหลดเยอะ และ JavaScript ที่ไม่จำเป็น ก่อนแก้รายละเอียดเล็ก ๆ',
+        },
       ],
     },
     {
@@ -295,6 +389,10 @@ const lesson05: Lesson = {
         {
           type: 'heading',
           text: 'สำหรับสมัครงาน',
+        },
+        {
+          type: 'paragraph',
+          text: 'ถ้าใช้เว็บเป็น Portfolio สมัครงาน ให้เล่าให้เห็นทั้งผลลัพธ์และกระบวนการ ไม่ใช่แค่โชว์หน้าจอสุดท้าย เช่น อธิบายว่าคุณวาง Brief อย่างไร แยก Component อย่างไร และ Deploy อย่างไร',
         },
         {
           type: 'paragraph',
@@ -319,6 +417,10 @@ const lesson05: Lesson = {
         },
         {
           type: 'paragraph',
+          text: 'ถ้าใช้เว็บรับงาน Freelance ให้เน้นความน่าเชื่อถือ วิธีทำงาน ตัวอย่างงาน และช่องทางติดต่อที่ชัดเจน เพราะลูกค้าต้องรู้ว่าคุยกับคุณแล้วจะได้อะไร',
+        },
+        {
+          type: 'paragraph',
           text: 'ควรมีข้อมูล:',
         },
         {
@@ -336,6 +438,10 @@ const lesson05: Lesson = {
         {
           type: 'heading',
           text: 'สำหรับเจ้าของธุรกิจ',
+        },
+        {
+          type: 'paragraph',
+          text: 'ถ้าใช้กับธุรกิจจริง ให้ตรวจว่าข้อมูลติดต่อถูกต้อง Offer ชัดเจน และปุ่ม CTA อยู่ในตำแหน่งที่ลูกค้ากดง่าย โดยเฉพาะบนมือถือ',
         },
         {
           type: 'paragraph',
@@ -395,6 +501,12 @@ const lesson05: Lesson = {
             'Roadmap การต่อยอด',
             'โปรเจกต์ที่ใช้เป็น Portfolio ได้',
           ],
+        },
+        {
+          type: 'callout',
+          variant: 'key',
+          title: 'ส่งงานให้ครบ',
+          text: 'อย่างน้อยควรมี GitHub Repository, Vercel URL, คำอธิบายเว็บสั้น ๆ และรายการสิ่งที่จะพัฒนาต่อหลังเรียน',
         },
       ],
     },

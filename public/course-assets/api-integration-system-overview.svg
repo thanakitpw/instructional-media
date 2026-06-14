@@ -1,0 +1,64 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Lead Integration Mini System overview</title>
+  <desc id="desc">Overview diagram showing user input from web and mobile through API, backend, database, dashboard, and external systems.</desc>
+  <rect width="1200" height="720" fill="#f8fafc"/>
+  <rect x="56" y="52" width="1088" height="616" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="88" y="104" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Lead Integration Mini System</text>
+  <text x="88" y="140" font-family="Arial, sans-serif" font-size="18" fill="#475569">ภาพรวมการเดินทางของข้อมูลจากผู้ใช้ ไปยัง API, Database และระบบภายนอก</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; }
+      .blue { fill: #eff6ff; stroke: #2563eb; }
+      .green { fill: #ecfdf5; stroke: #059669; }
+      .amber { fill: #fffbeb; stroke: #d97706; }
+      .text { font-family: Arial, sans-serif; fill: #0f172a; }
+      .muted { font-family: Arial, sans-serif; fill: #475569; }
+      .label { font-size: 20px; font-weight: 700; }
+      .small { font-size: 15px; }
+      .arrow { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="box blue" x="88" y="252" width="160" height="92" rx="14"/>
+  <text class="text label" x="168" y="288" text-anchor="middle">User</text>
+  <text class="muted small" x="168" y="318" text-anchor="middle">กรอกข้อมูล Lead</text>
+
+  <rect class="box" x="320" y="190" width="190" height="92" rx="14"/>
+  <text class="text label" x="415" y="226" text-anchor="middle">Web Form</text>
+  <text class="muted small" x="415" y="256" text-anchor="middle">Landing page / CRM form</text>
+
+  <rect class="box" x="320" y="344" width="190" height="92" rx="14"/>
+  <text class="text label" x="415" y="380" text-anchor="middle">Mobile App</text>
+  <text class="muted small" x="415" y="410" text-anchor="middle">Expo / React Native</text>
+
+  <rect class="box green" x="590" y="252" width="180" height="92" rx="14"/>
+  <text class="text label" x="680" y="288" text-anchor="middle">API Endpoint</text>
+  <text class="muted small" x="680" y="318" text-anchor="middle">POST /api/leads</text>
+
+  <rect class="box green" x="848" y="252" width="180" height="92" rx="14"/>
+  <text class="text label" x="938" y="288" text-anchor="middle">Back-End</text>
+  <text class="muted small" x="938" y="318" text-anchor="middle">Validate + Save</text>
+
+  <rect class="box amber" x="590" y="472" width="180" height="92" rx="14"/>
+  <text class="text label" x="680" y="508" text-anchor="middle">Database</text>
+  <text class="muted small" x="680" y="538" text-anchor="middle">leads table</text>
+
+  <rect class="box amber" x="848" y="472" width="220" height="92" rx="14"/>
+  <text class="text label" x="958" y="508" text-anchor="middle">External System</text>
+  <text class="muted small" x="958" y="538" text-anchor="middle">Sheets / CRM / Webhook</text>
+
+  <path class="arrow" d="M248 298 C278 298 288 236 320 236"/>
+  <path class="arrow" d="M248 298 C278 298 288 390 320 390"/>
+  <path class="arrow" d="M510 236 C548 236 552 298 590 298"/>
+  <path class="arrow" d="M510 390 C548 390 552 298 590 298"/>
+  <path class="arrow" d="M770 298 L848 298"/>
+  <path class="arrow" d="M938 344 C938 406 738 406 700 472"/>
+  <path class="arrow" d="M770 518 L848 518"/>
+
+  <rect x="88" y="594" width="980" height="34" rx="17" fill="#eff6ff"/>
+  <text class="muted small" x="108" y="616">Key idea: Web App และ Mobile App ต่างกันที่หน้าจอ แต่ใช้ API Contract เดียวกันได้</text>
+</svg>

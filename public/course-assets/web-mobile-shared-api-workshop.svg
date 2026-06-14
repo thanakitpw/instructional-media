@@ -1,0 +1,57 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Workshop architecture: Web and Mobile share one API</title>
+  <desc id="desc">Workshop diagram showing a web app and a mobile app both calling the same API and reading the same leads data.</desc>
+  <rect width="1200" height="720" fill="#f8fafc"/>
+  <text x="72" y="88" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Workshop: Web + Mobile เรียก API เดียวกัน</text>
+  <text x="72" y="122" font-family="Arial, sans-serif" font-size="18" fill="#475569">เป้าหมายคือทำ demo project ที่ลูกค้าเห็นภาพได้ และผู้เรียนเข้าใจ flow end-to-end</text>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .client { fill: #f0fdfa; stroke: #0f766e; stroke-width: 2; }
+      .api { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; }
+      .store { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; }
+      .text { font-family: Arial, sans-serif; fill: #0f172a; }
+      .muted { font-family: Arial, sans-serif; fill: #475569; }
+      .title { font-size: 22px; font-weight: 700; }
+      .small { font-size: 15px; }
+      .arrow { stroke: #0f766e; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="panel" x="72" y="172" width="1056" height="456" rx="18"/>
+
+  <rect class="client" x="116" y="232" width="244" height="140" rx="16"/>
+  <text class="text title" x="238" y="274" text-anchor="middle">Web App</text>
+  <text class="muted small" x="238" y="307" text-anchor="middle">Lead Form</text>
+  <text class="muted small" x="238" y="333" text-anchor="middle">Lead Dashboard</text>
+
+  <rect class="client" x="116" y="428" width="244" height="140" rx="16"/>
+  <text class="text title" x="238" y="470" text-anchor="middle">Mobile App</text>
+  <text class="muted small" x="238" y="503" text-anchor="middle">Lead Form</text>
+  <text class="muted small" x="238" y="529" text-anchor="middle">Expo / Device Test</text>
+
+  <rect class="api" x="480" y="326" width="240" height="140" rx="16"/>
+  <text class="text title" x="600" y="366" text-anchor="middle">Shared API</text>
+  <text class="muted small" x="600" y="399" text-anchor="middle">GET /api/leads</text>
+  <text class="muted small" x="600" y="425" text-anchor="middle">POST /api/leads</text>
+
+  <rect class="store" x="842" y="232" width="244" height="140" rx="16"/>
+  <text class="text title" x="964" y="274" text-anchor="middle">Lead Storage</text>
+  <text class="muted small" x="964" y="307" text-anchor="middle">Mock / SQLite / Supabase</text>
+  <text class="muted small" x="964" y="333" text-anchor="middle">Single source of truth</text>
+
+  <rect class="store" x="842" y="428" width="244" height="140" rx="16"/>
+  <text class="text title" x="964" y="470" text-anchor="middle">Customer Demo</text>
+  <text class="muted small" x="964" y="503" text-anchor="middle">Webhook / Sheets</text>
+  <text class="muted small" x="964" y="529" text-anchor="middle">Production URL</text>
+
+  <path class="arrow" d="M360 302 C410 302 424 396 480 396"/>
+  <path class="arrow" d="M360 498 C410 498 424 396 480 396"/>
+  <path class="arrow" d="M720 396 C772 396 788 302 842 302"/>
+  <path class="arrow" d="M720 396 C772 396 788 498 842 498"/>
+
+  <text class="muted small" x="600" y="596" text-anchor="middle">Workshop rule: เปลี่ยน client ได้ แต่ API Contract ต้องเหมือนเดิม</text>
+</svg>

@@ -68,14 +68,27 @@ const lesson01: Lesson = {
           text: 'เมื่อผู้ใช้กรอกฟอร์ม Lead หนึ่งครั้ง ข้อมูลจะไม่ได้กระโดดจากหน้าเว็บไปถึง database ทันที แต่จะผ่านหลายชั้น แต่ละชั้นมีหน้าที่ต่างกัน และแต่ละชั้นเป็นจุดที่อาจเกิด error ได้',
         },
         {
-          type: 'flow',
-          steps: [
-            'User',
-            'Web Form หรือ Mobile App',
-            'API Endpoint',
-            'Back-End Logic',
-            'Database',
-            'Dashboard หรือ External System',
+          type: 'columns',
+          left: [
+            {
+              type: 'flow',
+              steps: [
+                'User',
+                'Web Form หรือ Mobile App',
+                'API Endpoint',
+                'Back-End Logic',
+                'Database',
+                'Dashboard หรือ External System',
+              ],
+            },
+          ],
+          right: [
+            {
+              type: 'image',
+              src: '/course-assets/api-integration-system-overview.svg',
+              alt: 'แผนภาพภาพรวมการเดินทางของข้อมูลในระบบ API Integration',
+              caption: 'ภาพรวมการเดินทางของข้อมูล',
+            },
           ],
         },
         {

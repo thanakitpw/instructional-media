@@ -16,12 +16,22 @@ const lesson04: Lesson = {
         },
         {
           type: 'paragraph',
+          text: 'ความต่างสำคัญระหว่าง HTML Preview กับ Next.js คือ HTML Preview เหมาะกับการดูภาพรวมหน้าเดียว แต่ Next.js เหมาะกับการดูแลโปรเจกต์จริง เพราะแยกไฟล์ แยก Component จัดการรูปภาพ ตั้งค่า metadata และ Deploy ได้เป็นระบบ',
+        },
+        {
+          type: 'paragraph',
           text: 'เปรียบเทียบง่าย ๆ:',
         },
         {
           type: 'code',
           lang: 'text',
           code: 'HTML Preview = หน้าเว็บตัวอย่างที่ทำให้เห็นภาพ\nNext.js = โปรเจกต์จริงที่พร้อมพัฒนาและ Deploy\nComponent = ชิ้นส่วนของหน้าเว็บ เช่น Hero, Pricing, FAQ\nPage = หน้าหลักของเว็บไซต์\nDeploy = การนำเว็บขึ้นออนไลน์',
+        },
+        {
+          type: 'callout',
+          variant: 'note',
+          title: 'มอง Next.js เป็นโครงงานจริง',
+          text: 'เมื่อเข้า Next.js แล้ว ควรเริ่มคิดแบบโปรเจกต์จริง เช่น ไฟล์ไหนรับผิดชอบอะไร Component ไหนแก้ข้อความไหน และถ้า Error เกิดขึ้นควรตรวจตรงไหนก่อน',
         },
       ],
     },
@@ -46,6 +56,17 @@ const lesson04: Lesson = {
             '`components/` คือโฟลเดอร์เก็บส่วนประกอบของหน้าเว็บ',
             '`public/` คือโฟลเดอร์เก็บรูปภาพ โลโก้ ไอคอน หรือไฟล์ Static',
             '`package.json` คือไฟล์เก็บข้อมูลโปรเจกต์และคำสั่งสำหรับรันเว็บ',
+          ],
+        },
+        {
+          type: 'table',
+          head: ['ไฟล์/โฟลเดอร์', 'ใช้เมื่อไร', 'ตัวอย่างสิ่งที่แก้'],
+          rows: [
+            ['app/page.tsx', 'เมื่อต้องจัดลำดับ Section หน้าแรก', 'เพิ่ม/ลบ Component หรือเปลี่ยนลำดับ Hero, FAQ, Footer'],
+            ['app/layout.tsx', 'เมื่อต้องตั้งค่า layout รวมของเว็บ', 'metadata, font, โครง HTML หลัก'],
+            ['app/globals.css', 'เมื่อต้องตั้งค่า style รวม', 'สีพื้นฐาน, body, utility เพิ่มเติม'],
+            ['components/', 'เมื่อต้องแก้ Section เฉพาะจุด', 'Hero.tsx, Pricing.tsx, FAQ.tsx'],
+            ['public/', 'เมื่อต้องใส่รูป โลโก้ หรือไฟล์ static', 'logo.png, hero-image.webp'],
           ],
         },
       ],
@@ -89,6 +110,16 @@ const lesson04: Lesson = {
           ],
         },
         {
+          type: 'paragraph',
+          text: 'หลักง่าย ๆ คือ 1 Section ควรเป็น 1 Component ก่อน เช่น `Hero.tsx` ดูแลเฉพาะ Hero และ `FAQ.tsx` ดูแลเฉพาะคำถามที่พบบ่อย เมื่ออยากแก้ส่วนไหนก็ส่งให้ AI ดูเฉพาะไฟล์นั้น',
+        },
+        {
+          type: 'callout',
+          variant: 'warning',
+          title: 'อย่าสั่งกว้างเกินไปหลังแยก Component',
+          text: 'ถ้าคุณสั่งว่า “ช่วยปรับเว็บทั้งหมดให้ดีขึ้น” AI อาจแก้หลายไฟล์พร้อมกันจนตรวจยาก ให้สั่งทีละส่วน เช่น “แก้เฉพาะ Hero ให้ CTA ชัดขึ้น”',
+        },
+        {
           type: 'heading',
           text: 'Prompt สำหรับแปลง HTML เป็น Next.js',
         },
@@ -105,6 +136,10 @@ const lesson04: Lesson = {
         {
           type: 'paragraph',
           text: 'หลังจากแปลงเป็น Next.js แล้ว ให้สั่ง AI แบบเจาะจงขึ้น',
+        },
+        {
+          type: 'paragraph',
+          text: 'การสั่งแบบเจาะจงช่วยลดความเสี่ยงที่ AI จะเปลี่ยนโค้ดส่วนอื่นโดยไม่จำเป็น และทำให้คุณตรวจผลลัพธ์ได้ง่ายขึ้น',
         },
         {
           type: 'heading',
@@ -133,6 +168,17 @@ const lesson04: Lesson = {
           lang: 'text',
           code: 'ช่วยเพิ่ม FAQ Section จำนวน 6 คำถาม\nเน้นตอบข้อกังวลของลูกค้าที่อยากจ้างทำเว็บไซต์',
         },
+        {
+          type: 'table',
+          head: ['งานที่ต้องการ', 'ควรส่งข้อมูลอะไรให้ AI'],
+          rows: [
+            ['แก้ข้อความ Hero', 'กลุ่มเป้าหมาย, Offer, CTA, ข้อความเดิม'],
+            ['ปรับสี', 'สีหลัก สีรอง ตัวอย่าง mood และจุดที่ต้องการให้ CTA เด่น'],
+            ['เพิ่ม FAQ', 'ข้อกังวลของลูกค้า, บริการที่ขาย, น้ำเสียงที่ต้องการ'],
+            ['แก้ Responsive', 'ขนาดหน้าจอที่พัง, ภาพหรือข้อความที่ล้น, ไฟล์ Component ที่เกี่ยวข้อง'],
+            ['แก้ Error', 'คำสั่งที่รัน, Error หลัก, ไฟล์ที่เพิ่งแก้'],
+          ],
+        },
       ],
     },
     {
@@ -141,6 +187,10 @@ const lesson04: Lesson = {
         {
           type: 'paragraph',
           text: 'Git คือระบบเก็บประวัติการแก้ไขโค้ด ทำให้คุณย้อนกลับ ดูประวัติ หรือบันทึกจุดสำคัญของงานได้',
+        },
+        {
+          type: 'paragraph',
+          text: 'ให้คิดว่า Commit คือจุดบันทึกงานที่สำคัญ เมื่อเว็บเริ่มใช้งานได้หรือแก้ Section สำคัญเสร็จ ควร Commit ไว้ เพื่อให้รู้ว่าโปรเจกต์เดินมาถึงจุดไหนแล้ว',
         },
         {
           type: 'paragraph',
@@ -178,6 +228,12 @@ const lesson04: Lesson = {
           lang: 'bash',
           code: 'git commit -m "Add hero section"\ngit commit -m "Update pricing content"\ngit commit -m "Fix mobile responsive layout"\ngit commit -m "Add contact form section"',
         },
+        {
+          type: 'callout',
+          variant: 'note',
+          title: 'Commit Message ที่ดี',
+          text: 'ควรบอกว่าทำอะไร เช่น Add hero section หรือ Fix mobile layout ไม่ควรใช้ข้อความกว้าง ๆ เช่น update หรือ final-final',
+        },
       ],
     },
     {
@@ -186,6 +242,10 @@ const lesson04: Lesson = {
         {
           type: 'paragraph',
           text: 'Error เป็นเรื่องปกติในการพัฒนาเว็บ สิ่งสำคัญคือคุณต้องส่งข้อมูลให้ AI ครบพอ',
+        },
+        {
+          type: 'paragraph',
+          text: 'เวลาเจอ Error อย่าเพิ่งแก้สุ่ม ให้แยกก่อนว่า Error เกิดตอนติดตั้ง ตอนรันเว็บ ตอน build ตอนเปิดหน้าเว็บ หรือหลังแก้ไฟล์ใดไฟล์หนึ่ง เพราะแต่ละแบบมีวิธีตรวจต่างกัน',
         },
         {
           type: 'paragraph',
@@ -210,11 +270,26 @@ const lesson04: Lesson = {
           lang: 'text',
           code: 'ตอนนี้ฉันกำลังรันโปรเจกต์ Next.js แล้วเจอ Error ด้านล่าง\n\nสิ่งที่ทำ:\n- แก้ไฟล์ components/Hero.tsx\n- รันคำสั่ง npm run dev\n\nError:\n[วาง Error ตรงนี้]\n\nช่วยอธิบายว่า Error นี้เกิดจากอะไรแบบเข้าใจง่าย\nและบอกวิธีแก้ทีละขั้นตอน\nถ้าต้องแก้โค้ด ช่วยบอกด้วยว่าต้องแก้ไฟล์ไหน',
         },
+        {
+          type: 'table',
+          head: ['อาการ', 'จุดที่ควรตรวจ'],
+          rows: [
+            ['รัน npm run dev ไม่ได้', 'package, dependency, port, syntax error'],
+            ['เปิดหน้าแล้ว layout พัง', 'Component ล่าสุดที่แก้, className, responsive class'],
+            ['รูปไม่ขึ้น', 'path ใน public, ชื่อไฟล์, import หรือ src'],
+            ['Build ไม่ผ่าน', 'TypeScript error, unused import, missing export'],
+            ['Deploy แล้วพังแต่ local ใช้ได้', 'Environment Variables, build log, path ที่ต่างระหว่าง local/production'],
+          ],
+        },
       ],
     },
     {
       title: 'Checklist ก่อน Deploy',
       blocks: [
+        {
+          type: 'paragraph',
+          text: 'Checklist นี้ควรทำก่อน Push งานขึ้น Deploy เพราะปัญหาหลายอย่างแก้ในเครื่องได้ง่ายกว่ารอให้ Vercel build แล้วค่อยไล่ log ภายหลัง',
+        },
         {
           type: 'checklist',
           items: [

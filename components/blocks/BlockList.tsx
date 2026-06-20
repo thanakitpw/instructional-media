@@ -8,6 +8,7 @@ import Definitions from './Definitions'
 import ImageBlock from './ImageBlock'
 import Cards from './Cards'
 import Hero from './Hero'
+import LiveOrderForm from './LiveOrderForm'
 
 export default function BlockList({ blocks }: { blocks: Block[] }) {
   return (
@@ -82,6 +83,8 @@ export default function BlockList({ blocks }: { blocks: Block[] }) {
             return <Cards key={i} items={block.items} columns={block.columns} />
           case 'hero':
             return <Hero key={i} title={block.title} subtitle={block.subtitle} />
+          case 'live-order-form':
+            return <LiveOrderForm key={i} />
           case 'columns':
             return (
               <div key={i} className="my-6 grid gap-5 md:grid-cols-2 md:items-center">

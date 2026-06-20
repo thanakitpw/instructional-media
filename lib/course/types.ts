@@ -17,6 +17,9 @@ export type Block =
     }
   | { type: 'columns'; left: Block[]; right: Block[] }
   | { type: 'hero'; title: string; subtitle?: string }
+  // ── interactive ─────────────────────────────────────────────────────────────
+  // ฟอร์มสั่งอาหารจริงที่ยิง POST /api/orders แล้วโชว์ request + response สด
+  | { type: 'live-order-form' }
 
 export interface Section {
   title: string

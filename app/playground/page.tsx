@@ -7,7 +7,7 @@ import DataTable from '@/components/blocks/DataTable'
 export const metadata: Metadata = {
   title: 'API Playground — Best Bites',
   description:
-    'ลองยิง API จริงของร้าน Best Bites ผ่านฟอร์ม แล้วดู request และ response',
+    'ทดลองเรียกใช้งาน API ของร้าน Best Bites ผ่านฟอร์ม และดู request กับ response ที่เกิดขึ้นจริง',
 }
 
 export default function PlaygroundPage() {
@@ -33,9 +33,9 @@ export default function PlaygroundPage() {
           ร้าน Best Bites
         </h1>
         <p className="mt-3 leading-[1.75] text-ink-soft text-pretty">
-          หน้านี้ให้คุณลองยิง API จริงผ่านฟอร์ม กรอกออเดอร์แล้วกดส่ง ระบบจะแสดงทั้ง
-          “สิ่งที่ส่งไป” และ “คำตอบที่ได้กลับมา” เหมือนที่เห็นใน Postman
-          แต่อยู่ในรูปฟอร์มแบบที่ผู้ใช้ทั่วไปใช้จริง
+          หน้านี้ให้ผู้เรียนทดลองเรียกใช้งาน API ผ่านฟอร์มสั่งอาหาร เมื่อกรอกข้อมูลและกดส่ง
+          ระบบจะแสดงทั้ง “ข้อมูลที่ส่งไป” และ “ผลลัพธ์ที่ได้รับกลับมา”
+          เหมือนการทดสอบใน Postman แต่อยู่ในรูปแบบฟอร์มที่ใกล้เคียงการใช้งานจริง
         </p>
 
         <LiveOrderForm />
@@ -58,7 +58,7 @@ export default function PlaygroundPage() {
         />
 
         <p className="mt-8 text-sm text-muted">
-          อยากลองยิงเองแบบละเอียด? เปิด Postman แล้วยิงไปที่ URL ข้างบนได้เลย — ดูวิธีทีละขั้นในบทที่ 4 ของคอร์ส
+          หากต้องการทดลองเรียกใช้งานด้วยตนเองแบบละเอียด ให้เปิด Postman แล้วส่งคำขอไปยัง URL ด้านบน โดยดูขั้นตอนประกอบได้ในบทที่ 4 ของคอร์ส
         </p>
       </main>
     </div>

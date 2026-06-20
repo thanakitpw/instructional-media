@@ -1,7 +1,7 @@
 import { MENU, RESTAURANT_NAME } from '@/lib/restaurant/menu'
 
-// GET /api/menu — "ขอดูเมนูทั้งร้าน"
-// เปรียบเหมือนลูกค้าเปิดเมนูดูว่ามีอะไรขายบ้าง
+// GET /api/menu — ดูรายการเมนูทั้งหมด
+// เปรียบเหมือนลูกค้าเปิดเมนูเพื่อดูรายการที่ให้บริการ
 export async function GET() {
   return Response.json({
     restaurant: RESTAURANT_NAME,

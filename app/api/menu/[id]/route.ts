@@ -11,7 +11,7 @@ export async function GET(
 
   if (!item) {
     return Response.json(
-      { error: `ไม่มีเมนูรหัส ${id} ในร้านนี้ 🙏 ลองดูเมนูทั้งหมดที่ /api/menu` },
+      { error: `ไม่พบเมนูรหัส ${id} ในระบบ กรุณาดูรายการเมนูทั้งหมดที่ /api/menu` },
       { status: 404 },
     )
   }

@@ -38,7 +38,7 @@ export default function LiveOrderForm() {
   const [res, setRes] = useState<ApiResponse | null>(null)
   const [netError, setNetError] = useState(false)
 
-  // ดึงเมนูจริงจาก API ตอนเปิด (อันนี้ก็คือ GET /api/menu นั่นเอง)
+  // ดึงรายการเมนูจาก API ตอนเปิดหน้า ซึ่งเทียบเท่ากับ GET /api/menu
   useEffect(() => {
     fetch('/api/menu')
       .then((r) => r.json())
@@ -85,22 +85,20 @@ export default function LiveOrderForm() {
 
   return (
     <div className="my-6 overflow-hidden rounded-xl border border-border bg-surface">
-      {/* หัวฟอร์ม */}
       <div className="border-b border-border bg-elevated px-5 py-3.5">
-        <p className="font-semibold text-ink">🍜 ฟอร์มสั่งอาหาร Best Bites (ของจริง)</p>
+        <p className="font-semibold text-ink">ฟอร์มสั่งอาหาร Best Bites</p>
         <p className="mt-0.5 text-sm text-muted">
-          เลือกเมนู แล้วกดส่ง — ฟอร์มนี้ยิง POST ไปที่ API จริง แล้วโชว์สิ่งที่ส่งไปและคำตอบที่ได้กลับมาด้านล่าง
+          เลือกเมนูแล้วกดส่ง ฟอร์มนี้จะส่ง POST ไปยัง API จริง และแสดงข้อมูลที่ส่งไปพร้อมผลลัพธ์ที่ได้รับกลับมาด้านล่าง
         </p>
       </div>
 
       <div className="px-5 py-4">
         {menuError ? (
-          <p className="text-sm text-warning">โหลดเมนูจาก API ไม่ได้ ลองรีเฟรชหน้าอีกครั้ง</p>
+          <p className="text-sm text-warning">ไม่สามารถโหลดเมนูจาก API ได้ กรุณารีเฟรชหน้าอีกครั้ง</p>
         ) : menu.length === 0 ? (
-          <p className="text-sm text-muted">กำลังโหลดเมนูจาก /api/menu …</p>
+          <p className="text-sm text-muted">กำลังโหลดเมนูจาก /api/menu...</p>
         ) : (
           <>
-            {/* โต๊ะ */}
             <label className="mb-3 flex items-center gap-2 text-sm text-ink">
               <span className="font-medium">โต๊ะที่</span>
               <input
@@ -112,7 +110,6 @@ export default function LiveOrderForm() {
               />
             </label>
 
-            {/* รายการเมนู + ตัวเพิ่มจำนวน */}
             <ul className="divide-y divide-border rounded-lg border border-border">
               {menu.map((m) => {
                 const qty = qtys[m.id] ?? 0
@@ -155,7 +152,6 @@ export default function LiveOrderForm() {
               })}
             </ul>
 
-            {/* รวม + ปุ่มส่ง */}
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
               <span className="text-sm text-ink-soft">
                 รวม <span className="font-mono font-semibold text-ink">{total}฿</span>
@@ -167,7 +163,7 @@ export default function LiveOrderForm() {
                   disabled={loading}
                   className="rounded-lg border border-border px-3 py-2 text-sm text-ink-soft transition hover:bg-bg disabled:opacity-50"
                 >
-                  ลองส่งที่ผิด (ดู 400)
+                  ส่งข้อมูลไม่ครบเพื่อดู 400
                 </button>
                 <button
                   type="button"
@@ -175,19 +171,18 @@ export default function LiveOrderForm() {
                   disabled={loading || items.length === 0}
                   className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition hover:bg-accent-hover disabled:opacity-50"
                 >
-                  {loading ? 'กำลังส่ง…' : 'ส่งออเดอร์ → POST /api/orders'}
+                  {loading ? 'กำลังส่ง...' : 'ส่งคำสั่งซื้อ → POST /api/orders'}
                 </button>
               </div>
             </div>
           </>
         )}
 
-        {/* ผลลัพธ์: request ที่ส่ง + response ที่ได้ */}
         {sent && (
           <div className="mt-5 grid gap-4 border-t border-border pt-5 md:grid-cols-2">
             <div>
               <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-muted">
-                📤 สิ่งที่ส่งไป (Request)
+                ข้อมูลที่ส่งไป (Request)
               </p>
               <p className="mb-1.5 font-mono text-xs text-ink-soft">
                 <span className="font-semibold text-accent">POST</span> {sent.url}
@@ -196,10 +191,10 @@ export default function LiveOrderForm() {
             </div>
             <div>
               <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-muted">
-                📥 สิ่งที่ได้กลับมา (Response)
+                ผลลัพธ์ที่ได้รับกลับมา (Response)
               </p>
               {netError ? (
-                <p className="text-sm text-warning">เชื่อมต่อ API ไม่ได้</p>
+                <p className="text-sm text-warning">ไม่สามารถเชื่อมต่อ API ได้</p>
               ) : res ? (
                 <>
                   <span
@@ -210,7 +205,7 @@ export default function LiveOrderForm() {
                   <JsonView value={res.data} />
                 </>
               ) : (
-                <p className="text-sm text-muted">กำลังรอคำตอบ…</p>
+                <p className="text-sm text-muted">กำลังรอคำตอบ...</p>
               )}
             </div>
           </div>

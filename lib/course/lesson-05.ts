@@ -1,90 +1,77 @@
 import type { Lesson } from './types'
 
 const lesson05: Lesson = {
-  title: 'Mobile App เรียก API เดียวกัน',
+  title: 'การนำไปใช้งานจริงและการตั้งคำถามกับ AI',
   sections: [
     {
-      title: 'Flow & สิ่งที่เหมือน Web App',
+      title: 'API Key และความปลอดภัย',
       blocks: [
         {
           type: 'paragraph',
-          text: 'Mobile App สามารถใช้ Back-End API ชุดเดียวกับ Web App ได้ แต่ต้องระวังเรื่อง URL, localhost และ Environment เพราะสภาพแวดล้อมการรันไม่เหมือนกัน',
+          text: 'เมื่อนำ API ไปใช้กับงานจริง เช่น การเชื่อม Google Sheet, LINE หรือระบบชำระเงิน ส่วนใหญ่มักต้องใช้ API Key เพื่อยืนยันสิทธิ์ คล้ายกับตัวอย่าง x-api-key ในบทก่อนหน้า ประเด็นสำคัญคือการเก็บรักษา API Key ให้ปลอดภัย',
         },
         {
-          type: 'flow',
-          steps: [
-            'Mobile App',
-            'API URL',
-            'Back-End API',
-            'Database',
-            'Response กลับไปที่ Mobile App',
+          type: 'definitions',
+          items: [
+            { term: 'API Key คืออะไร', desc: 'รหัสลับที่ใช้บอกว่าผู้เรียกใช้งานคือใคร และมีสิทธิ์ใช้บริการนั้นหรือไม่ หากไม่มีหรือใส่ผิด มักได้รับ 401 Unauthorized' },
+            { term: 'ควรเก็บไว้ที่ไหน', desc: 'ควรเก็บไว้ฝั่ง back-end หรือใน Environment Variables เท่านั้น ไม่ควรใส่ไว้ในโค้ดหน้าเว็บที่ผู้ใช้เปิดดูได้' },
+            { term: 'สิ่งที่ห้ามทำ', desc: 'ห้ามเผยแพร่ API Key ขึ้น GitHub และไม่ควรส่งต่อในแชตทั่วไป เพราะหากรั่วไหล ผู้อื่นอาจนำไปใช้งานแทนเราได้' },
           ],
         },
         {
-          type: 'list',
+          type: 'callout',
+          variant: 'warning',
+          text: 'เมื่อต้องสั่งงาน AI ให้สร้างเว็บที่เชื่อมต่อ API ภายนอก ควรระบุให้ชัดเจนว่า "เก็บ API Key ไว้ฝั่ง server หรือ .env และไม่แสดงบนหน้าเว็บ" เพราะเป็นจุดที่ผู้เริ่มต้นผิดพลาดได้บ่อย',
+        },
+      ],
+    },
+    {
+      title: 'ชุดคำถามสำหรับถาม AI หรือโปรแกรมเมอร์',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'แม้ผู้เรียนไม่จำเป็นต้องเขียนโค้ดเอง แต่หากตั้งคำถามได้ถูกต้อง จะสามารถสั่งงาน AI หรือสื่อสารกับโปรแกรมเมอร์ได้ตรงประเด็นและลดเวลาทำงานได้มาก',
+        },
+        {
+          type: 'cards',
+          columns: 2,
           items: [
-            'เรียก API ด้วย HTTP Method',
-            'ส่ง Body เป็น JSON',
-            'รับ Response เป็น JSON',
-            'ต้องจัดการ Loading / Error / Success',
-            'ใช้ API Contract เดียวกัน',
+            { meta: 'ก่อนเริ่ม', title: 'API นี้มี endpoint อะไรบ้าง', desc: '"มี endpoint ใดให้เรียกใช้งานได้บ้าง และแต่ละ endpoint ใช้ method อะไร"' },
+            { meta: 'ข้อมูลที่ส่ง', title: 'ต้องส่งข้อมูลอะไรเข้าไป', desc: '"request body ต้องมี field ใดบ้าง ข้อมูลใดจำเป็น และข้อมูลใดไม่จำเป็น"' },
+            { meta: 'ผลลัพธ์', title: 'response มีโครงสร้างอย่างไร', desc: '"เมื่อสำเร็จจะได้รับข้อมูลใดกลับมา และเมื่อเกิด error จะได้รับข้อมูลใด"' },
+            { meta: 'สิทธิ์ใช้งาน', title: 'ต้องใช้ API Key หรือไม่', desc: '"ต้องเข้าสู่ระบบหรือแนบ key ใดหรือไม่ และควรเก็บ key อย่างไรให้ปลอดภัย"' },
+            { meta: 'ข้อผิดพลาด', title: 'ควรแก้ error นี้อย่างไร', desc: '"เรียกใช้งานแล้วได้ status [เลข] และ body แบบนี้ หมายความว่าอะไร และควรแก้อย่างไร"' },
+            { meta: 'การใช้งานจริง', title: 'การ deploy ต้องตั้งค่าอะไรเพิ่มหรือไม่', desc: '"URL ตอนทดสอบกับตอนใช้งานจริงต่างกันหรือไม่ และต้องตั้งค่าเพิ่มเติมส่วนใด"' },
           ],
         },
       ],
     },
     {
-      title: 'สิ่งที่ต่าง & ปัญหา localhost',
+      title: 'สรุปและแนวทางต่อยอด',
       blocks: [
         {
-          type: 'list',
+          type: 'paragraph',
+          text: 'หลังจบคอร์สนี้ ผู้เรียนไม่จำเป็นต้องกลายเป็น back-end developer แต่จะมีความเข้าใจภาพรวมของ API มากพอที่จะสื่อสารกับ AI หรือโปรแกรมเมอร์ได้ชัดเจนขึ้น',
+        },
+        {
+          type: 'checklist',
           items: [
-            'Mobile App ไม่มี Browser URL เหมือน Web App',
-            'การเรียก `localhost` จะมีปัญหาเมื่อทดสอบบนมือถือจริง',
-            'ต้องใช้ IP เครื่องในวง LAN หรือ Production API URL',
-            'ต้องจัดการ Permission / Network / Device Testing เพิ่ม',
+            'อธิบาย API ด้วยอุปมาร้านอาหารได้',
+            'มองการเดินทางของข้อมูลเป็นชั้น ๆ ได้',
+            'รู้องค์ประกอบของ request 4 อย่าง และอ่าน status code เป็น',
+            'ทดลองเรียกใช้งาน API จริงด้วย Postman ได้ ทั้ง GET, POST และการใส่ API Key',
+            'รู้ว่าต้องดูแล API Key อย่างไรให้ปลอดภัย',
+            'ตั้งคำถามกับ AI หรือโปรแกรมเมอร์ได้ตรงประเด็น',
           ],
-        },
-        {
-          type: 'paragraph',
-          text: 'ใน Web App ที่รันบนเครื่องคอมพิวเตอร์ อาจเรียก API แบบนี้ได้',
-        },
-        {
-          type: 'code',
-          lang: 'text',
-          code: 'http://localhost:3000/api/leads',
-        },
-        {
-          type: 'paragraph',
-          text: 'แต่ในมือถือจริง `localhost` หมายถึง "ตัวเครื่องมือถือเอง" ไม่ใช่เครื่องคอมพิวเตอร์ที่รัน API อยู่',
-        },
-        {
-          type: 'paragraph',
-          text: 'ดังนั้น Mobile App ที่รันบนมือถือจริงจะเรียก API ในเครื่องคอมพิวเตอร์ด้วย localhost โดยตรงไม่ได้',
-        },
-      ],
-    },
-    {
-      title: 'วิธีแก้ & Environment',
-      blocks: [
-        {
-          type: 'list',
-          ordered: true,
-          items: [
-            'ใช้ Local Network IP เช่น http://192.168.1.10:3000/api/leads',
-            'ให้มือถือและคอมอยู่ Wi-Fi เดียวกัน',
-            'เปิด Firewall ให้เรียกได้',
-            'หรือ Deploy API แล้วใช้ Production URL',
-          ],
-        },
-        {
-          type: 'code',
-          lang: 'text',
-          code: `Development API URL:\nhttp://192.168.1.10:3000/api\n\nProduction API URL:\nhttps://your-app.vercel.app/api`,
         },
         {
           type: 'callout',
           variant: 'key',
-          text: 'Web App และ Mobile App ต่างกันที่ UI และ Runtime แต่สามารถใช้ API Contract เดียวกันได้ หากออกแบบ API ให้ชัดเจนตั้งแต่แรก',
+          text: 'แนวทางต่อยอด: ทดลองให้ AI ช่วยสร้างเว็บฟอร์มที่ส่งข้อมูลเข้า API จริง เช่นฟอร์มติดต่อที่ส่งข้อมูลเข้า Google Sheet แล้วใช้ความรู้จากคอร์สนี้ตรวจสอบว่าระบบทำงานถูกต้องหรือไม่',
+        },
+        {
+          type: 'paragraph',
+          text: 'ทักษะสำคัญไม่ใช่การรู้ทุกอย่างตั้งแต่แรก แต่คือการรู้วิธีตั้งคำถาม ตรวจสอบคำตอบ และสื่อสารกับเครื่องมือหรือทีมเทคนิคอย่างมีโครงสร้าง',
         },
       ],
     },

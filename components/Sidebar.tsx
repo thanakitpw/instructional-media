@@ -10,10 +10,12 @@ export default function Sidebar({
   nav,
   courseSlug,
   courseTitle,
+  courses,
 }: {
   nav: NavLesson[]
   courseSlug: string
   courseTitle: string
+  courses: { slug: string; subject: string }[]
 }) {
   const pathname = usePathname()
   const [query, setQuery] = useState('')
@@ -95,6 +97,36 @@ export default function Sidebar({
       >
         <div className="border-b border-border px-5 pb-4 pt-5 lg:pt-5">
           <Brand className="mb-4" />
+          {/* course switcher — แสดงเมื่อมีมากกว่า 1 คอร์ส */}
+          {courses.length > 1 && (
+            <div
+              className="mb-3 flex gap-1 rounded-lg border border-border bg-elevated p-1"
+              role="tablist"
+              aria-label="เลือกคอร์ส"
+            >
+              {courses.map((c) => {
+                const active = c.slug === courseSlug
+                return (
+                  <Link
+                    key={c.slug}
+                    href={`/c/${c.slug}`}
+                    onClick={() => setOpen(false)}
+                    role="tab"
+                    aria-selected={active}
+                    aria-current={active ? 'page' : undefined}
+                    className={`flex-1 rounded-md px-2 py-1 text-center text-xs font-medium transition ${
+                      active
+                        ? 'bg-accent text-accent-fg'
+                        : 'text-ink-soft hover:bg-bg'
+                    }`}
+                  >
+                    {c.subject}
+                  </Link>
+                )
+              })}
+            </div>
+          )}
+
           <Link
             href={`/c/${courseSlug}`}
             onClick={() => setOpen(false)}

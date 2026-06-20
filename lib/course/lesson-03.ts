@@ -1,155 +1,111 @@
 import type { Lesson } from './types'
 
 const lesson03: Lesson = {
-  title: 'Request / Response และการทดสอบ API',
+  title: 'กายวิภาคของ Request และ Response',
   sections: [
     {
-      title: 'Endpoint & HTTP Method',
+      title: 'หนึ่งคำขอ (Request) ประกอบด้วย 4 ส่วน',
       blocks: [
         {
           type: 'paragraph',
-          text: 'เป้าหมายของบทนี้คือการทดสอบ API แยกจาก Front-End ให้ได้ เพื่อแยกปัญหาให้ออกว่า API มีปัญหาจริง หรือ Front-End เรียก API ผิดวิธี',
-        },
-        {
-          type: 'heading',
-          text: '1. Endpoint',
-        },
-        {
-          type: 'paragraph',
-          text: 'Endpoint คือ URL หรือ path ของ API ที่ระบบอื่นสามารถเรียกใช้งานได้ เช่น',
-        },
-        {
-          type: 'code',
-          lang: 'text',
-          code: `GET /api/leads
-POST /api/leads
-PATCH /api/leads/:id`,
-        },
-        {
-          type: 'heading',
-          text: '2. HTTP Method',
+          text: 'ทุกครั้งที่เรียกใช้ API คำขอหนึ่งชุดจะมีองค์ประกอบหลัก 4 ส่วน หากเข้าใจ 4 ส่วนนี้ ผู้เรียนจะสามารถอ่านเอกสาร API และทดลองเรียกใช้งาน API ได้อย่างเป็นระบบ',
         },
         {
           type: 'table',
-          head: ['Method', 'การใช้งาน'],
+          head: ['ส่วนประกอบ', 'ความหมาย', 'เปรียบเทียบกับร้านอาหาร'],
           rows: [
-            ['GET', 'ใช้ดึงข้อมูล'],
-            ['POST', 'ใช้สร้างข้อมูลใหม่'],
-            ['PATCH', 'ใช้แก้ไขข้อมูลบางส่วน'],
-            ['PUT', 'ใช้แก้ไขข้อมูลทั้งก้อน'],
-            ['DELETE', 'ใช้ลบข้อมูล'],
+            ['Method', 'ระบุเจตนาว่าต้องการทำอะไร', 'ดูข้อมูล / สั่งอาหาร / ยกเลิกคำสั่ง'],
+            ['URL (endpoint)', 'ที่อยู่ของปลายทางที่ต้องการเรียกใช้', 'โต๊ะหรือเมนูที่ต้องการสั่ง'],
+            ['Headers', 'ข้อมูลกำกับคำขอ เช่น ข้อมูลยืนยันสิทธิ์', 'บัตรสมาชิกหรือภาษาที่ต้องการใช้บริการ'],
+            ['Body', 'ข้อมูลหลักที่ส่งไปกับคำขอ', 'รายละเอียดของรายการที่สั่ง'],
           ],
         },
-      ],
-    },
-    {
-      title: 'Request & Response Body',
-      blocks: [
         {
           type: 'heading',
-          text: '3. Request Body',
-        },
-        {
-          type: 'paragraph',
-          text: 'Request Body คือข้อมูลที่ Client ส่งไปให้ API เช่น',
-        },
-        {
-          type: 'code',
-          lang: 'json',
-          code: `{
-  "name": "สมชาย ใจดี",
-  "phone": "0890000000",
-  "interest": "Website"
-}`,
-        },
-        {
-          type: 'heading',
-          text: '4. Response Body',
-        },
-        {
-          type: 'paragraph',
-          text: 'Response Body คือข้อมูลที่ API ส่งกลับมาหลังประมวลผล เช่น',
-        },
-        {
-          type: 'code',
-          lang: 'json',
-          code: `{
-  "success": true,
-  "message": "Lead created successfully",
-  "data": {
-    "id": 1,
-    "name": "สมชาย ใจดี",
-    "phone": "0890000000",
-    "interest": "Website"
-  }
-}`,
-        },
-      ],
-    },
-    {
-      title: 'Status Code',
-      blocks: [
-        {
-          type: 'heading',
-          text: '5. Status Code ที่ควรรู้',
+          text: 'Method ที่พบบ่อย 4 แบบ',
         },
         {
           type: 'table',
-          head: ['Status Code', 'ความหมาย'],
+          head: ['Method', 'ความหมาย', 'ตัวอย่างในร้าน'],
           rows: [
-            ['200 OK', 'สำเร็จ'],
-            ['201 Created', 'สร้างข้อมูลสำเร็จ'],
-            ['400 Bad Request', 'ส่งข้อมูลผิดหรือไม่ครบ'],
-            ['401 Unauthorized', 'ไม่มีสิทธิ์ / Token ผิด'],
-            ['403 Forbidden', 'ไม่มี Permission'],
-            ['404 Not Found', 'ไม่พบ Endpoint หรือข้อมูล'],
-            ['500 Internal Error', 'Server มีปัญหา'],
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Workshop 1: ทดสอบ API ด้วย Postman / Thunder Client',
-      blocks: [
-        {
-          type: 'heading',
-          text: 'สิ่งที่ต้องทำใน Workshop',
-        },
-        {
-          type: 'list',
-          ordered: true,
-          items: [
-            'เรียก `GET /api/leads`',
-            'เรียก `POST /api/leads`',
-            'ใส่ Body แบบ JSON',
-            'ใส่ Header `Content-Type: application/json`',
-            'อ่าน Response ที่ได้กลับมา',
-            'ดู Status Code',
-            'ทดลองส่งข้อมูลผิด เช่น ไม่ใส่ name หรือ phone',
-            'ดูว่า API ตอบ Error อย่างไร',
-          ],
-        },
-        {
-          type: 'heading',
-          text: 'Checklist ก่อนสรุป Workshop',
-        },
-        {
-          type: 'checklist',
-          items: [
-            'API URL ถูกไหม',
-            'Method ถูกไหม',
-            'Header ครบไหม',
-            'Body เป็น JSON ที่ถูกต้องไหม',
-            'Status Code คืออะไร',
-            'Response Message บอกอะไร',
-            'Error เกิดจาก Client หรือ Server',
+            ['GET', 'ดูข้อมูล', 'ดูเมนู'],
+            ['POST', 'ส่งข้อมูลหรือสร้างรายการใหม่', 'สั่งอาหาร 1 จาน'],
+            ['PUT / PATCH', 'แก้ไขข้อมูลเดิม', 'เปลี่ยนรายการอาหาร'],
+            ['DELETE', 'ลบข้อมูล', 'ยกเลิกคำสั่งซื้อ'],
           ],
         },
         {
           type: 'callout',
           variant: 'note',
-          title: 'สิ่งที่ผู้เรียนควรเข้าใจ',
-          text: 'ถ้าทดสอบ API ผ่าน Postman แล้วใช้งานได้ แต่หน้าเว็บยัง Error แสดงว่าปัญหาอาจอยู่ที่ Front-End เช่น URL ผิด, Body ผิด, Header ไม่ครบ หรือจัดการ Response ไม่ถูกต้อง',
+          text: 'โดยทั่วไป GET ใช้สำหรับขอดูข้อมูล จึงมักไม่ต้องมี Body ส่วน POST ใช้สำหรับส่งข้อมูลใหม่ จึงต้องแนบ Body เพื่อระบุรายละเอียด',
+        },
+      ],
+    },
+    {
+      title: 'อ่าน Response: ดู Status Code เป็นอันดับแรก',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'หลังส่งคำขอ API จะตอบกลับมาพร้อมเลขสถานะ 3 หลัก หรือ status code เลขนี้ช่วยบอกผลลัพธ์เบื้องต้นก่อนอ่านรายละเอียดอื่น',
+        },
+        {
+          type: 'table',
+          head: ['กลุ่ม', 'ความหมาย', 'ตัวอย่างที่พบบ่อย'],
+          rows: [
+            ['2xx', 'สำเร็จ', '200 OK (ได้รับข้อมูลแล้ว) · 201 Created (สร้างรายการใหม่สำเร็จ)'],
+            ['4xx', 'คำขอจากฝั่งผู้ใช้ไม่ถูกต้องหรือไม่มีสิทธิ์', '400 ข้อมูลไม่ถูกต้อง · 401 ยังไม่ยืนยันตัวตน · 403 ไม่มีสิทธิ์เข้าถึง · 404 ไม่พบข้อมูล'],
+            ['5xx', 'ระบบฝั่งเซิร์ฟเวอร์เกิดข้อผิดพลาด', '500 Internal Server Error'],
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'key',
+          text: 'หลักจำง่ายคือ 4xx มักเกี่ยวกับคำขอจากฝั่งผู้ใช้ ส่วน 5xx มักเกี่ยวกับระบบฝั่งเซิร์ฟเวอร์ หลักนี้ช่วยให้วิเคราะห์ปัญหาเบื้องต้นได้เร็วขึ้น',
+        },
+        {
+          type: 'paragraph',
+          text: 'นอกจาก status code ควรดูอีก 2 ส่วนคือ Body หรือข้อมูลที่ตอบกลับมา ซึ่งมักอยู่ในรูปแบบ JSON และ Time หรือเวลาที่ใช้ในการตอบกลับ',
+        },
+      ],
+    },
+    {
+      title: 'JSON — ภาษาที่ API ใช้คุยกัน',
+      blocks: [
+        {
+          type: 'paragraph',
+          text: 'ข้อมูลที่รับส่งระหว่างผู้ใช้กับ API มักอยู่ในรูปแบบ JSON ซึ่งเป็นวิธีเขียนข้อมูลแบบคู่ของชื่อและค่า โดยอ่านได้ค่อนข้างชัดเจน',
+        },
+        {
+          type: 'code',
+          lang: 'json',
+          code: `{
+  "name": "ผัดไทยกุ้งสด",
+  "price": 60,
+  "spicy": false,
+  "available": true
+}`,
+        },
+        {
+          type: 'list',
+          items: [
+            'ข้อความ ครอบด้วยเครื่องหมายคำพูด "..." เช่น "ผัดไทยกุ้งสด"',
+            'ตัวเลข เขียนได้โดยไม่ต้องมีเครื่องหมายคำพูด เช่น 60',
+            'จริง/เท็จ ใช้ true หรือ false',
+            'แต่ละคู่คั่นด้วยเครื่องหมายลูกน้ำ , โดยรายการสุดท้ายไม่ต้องมีลูกน้ำต่อท้าย',
+          ],
+        },
+        {
+          type: 'callout',
+          variant: 'warning',
+          text: 'ข้อผิดพลาดที่พบบ่อย ได้แก่ ลืมเครื่องหมายลูกน้ำ ใส่ลูกน้ำเกินหลังรายการสุดท้าย หรือใช้เครื่องหมายคำพูดผิดรูปแบบ หาก JSON ไม่ถูกต้อง API มักตอบกลับด้วย status 400',
+        },
+        {
+          type: 'checklist',
+          items: [
+            'บอกองค์ประกอบ 4 อย่างของ request ได้ (method / url / headers / body)',
+            'อ่าน status code แล้วแยกได้ว่าปัญหามักเกิดจากฝั่งผู้ใช้หรือฝั่งเซิร์ฟเวอร์',
+            'อ่าน JSON ได้ และรู้จุดที่มักเขียนผิด',
+          ],
         },
       ],
     },
